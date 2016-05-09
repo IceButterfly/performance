@@ -11,7 +11,7 @@
 angular
   .module('yapp', [
     'ui.router',
-    'ngAnimate'
+    'ngAnimate','yapp.services'
   ])
   .config(function($stateProvider, $urlRouterProvider) {
 
@@ -39,7 +39,8 @@ angular
           .state('overview', {
             url: '/overview',
             parent: 'dashboard',
-            templateUrl: 'views/dashboard/overview.html'
+            templateUrl: 'views/dashboard/overview.html',
+             controller: 'overviewCtrl'
           })
           .state('reports', {
             url: '/reports',

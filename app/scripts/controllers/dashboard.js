@@ -9,7 +9,9 @@
  */
 angular.module('yapp')
   .controller('DashboardCtrl', function($scope, $state) {
-
     $scope.$state = $state;
+  })
+  .controller('overviewCtrl', function($scope,Templates) {
+  	$scope.Templates = Templates.all();
+  })
 
-  });

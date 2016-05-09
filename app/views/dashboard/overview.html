@@ -1,13 +1,50 @@
-<div>
-	<a ui-sref="reports" class="pull-right btn btn-primary btn-outline btn-rounded">Reports</a>
-	<h2>Overview <small>Why is Ani Theme so awesome?</small></h2>
-	<div class="jumbotron">
-		<div class="container">
-			<h1>Welcome!</h1>
-			I don't want to bloat this Ani Theme Free Edition AngularJS Admin theme with a lot of plugins. To install plugins we have bower. Let's keep it real clean!<br /><br />
-			<p>
-				<a class="btn btn-primary btn-lg btn-outline btn-rounded">Learn more</a>
-			</p>
+<div class="container-fluid">
+	<div class="row-fluid">
+		<span class="glyphicon glyphicon-dashboard bg-fade"></span>
+		<div class="col-md-8 col-lg-8">
+			<div class="tabbable tabs-left" >
+				<ul class="nav nav-pills nav-stacked">
+					<li ng-repeat="template in Templates">
+						<div type="button" class="btn btn-default thumbnail" style="text-align: left;">
+							<div class="panel-heading bg-primary" style="margin: -4px;"> <h3 class="panel-title">绩效条目</h3> </div>
+							<div class="caption">
+								<h3>
+									<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+									{{template.name}}
+								</h3>
+							</div>
+						</div>
+					</li>
+					<li>
+						<button type="button" class="btn btn-lg btn-block btn-primary">新增绩效条目</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-md-4 col-lg-4" style="border-radius: 10px;background-color: white;">
+			<h3>
+				价值观标准：
+			</h3>
+			<ol>
+				<li class="text-primary">
+					<p>有owner意识，我的事情就是我的事情</p>
+				</li>
+				<li class="text-success">
+					<p>做事情积极主动，如果事情挡在某一个位置，不要等待，积极推动事情向前</p>
+				</li>
+				<li class="text-info">
+					<p>善于补位，当团队里同学有困难的时候，可以援助一下</p>
+				</li>
+				<li class="text-warning">
+					<p>不畏惧困难，啃硬骨头，有鄙视困难的决心与勇气</p>
+				</li>
+				<li class="text-danger">
+					<p>有时间观念，今天的事情， 坚决不拖到明天</p>
+				</li>
+				<li class="text-primary">
+					<p>团队合作很愉快，可以用自己的专业知识， 补全别的同学在方案上的漏洞，等等</p>
+				</li>
+			</ol>
 		</div>
 	</div>
 </div>
