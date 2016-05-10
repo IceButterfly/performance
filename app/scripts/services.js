@@ -22,6 +22,14 @@
   				}
   			}
   			return null;
-  		}
-  	}
+  		},
+            new:function(){
+                var Tlength = Templates.length;
+                var template = {
+                        id:Tlength+1,
+                        name:'模板'+(Tlength+1)
+                };
+                Templates.push(template);
+            }
+    }
   })

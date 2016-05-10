@@ -1,0 +1,49 @@
+<div class="container-fluid">
+	<div class="row-fluid">
+		<span class="glyphicon glyphicon-dashboard bg-fade"></span>
+		<div class="col-md-8 col-lg-8">
+			<div class="tabbable tabs-left" >
+				<ul class="nav nav-pills nav-stacked">
+					<li ng-repeat="template in Templates" class="panel panel-primary">
+						<div>
+							<div class="panel-heading bg-primary">
+								<span class="panel-title">本季度绩效条目</span>
+								<button type="button" class="btn btn-primary pull-right" style="border: 0;padding: 0">删除</button>
+							</div>
+							<a type="button" class="btn btn-default" style="display: block;text-align: left;" href="#/dashboard/templateManagement/{{template.id}}">
+								<h3>
+									<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+									{{template.name}}
+								</h3>
+							</a>
+						</div>
+					</li>
+					<li>
+						<button type="button" class="btn btn-lg btn-block btn-primary" ng-click="new()">新增绩效条目</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-md-4 col-lg-4" style="border-radius: 10px;background-color: white;">
+			<div class="panel panel-primary"> 
+				<div class="panel-heading"> 
+					<h3 class="panel-title">历史绩效条目</h3> 
+				</div> 
+				<div class="panel-body">
+					<table class="table"> 
+						<tr>
+							<th>时间</th>
+							<th>模板名称</th> 
+							<th></th> 
+						</tr> 
+						<tr>
+							<td>2016年5月10日</td>
+							<td>绩效1</td> 
+							<td><a href="">详细</a></td>
+						</tr>
+					</table>
+				</div> 
+			</div>
+		</div>
+	</div>
+</div>
