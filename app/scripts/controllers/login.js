@@ -1,5 +1,4 @@
 'use strict';
-
 /**
  * @ngdoc function
  * @name yapp.controller:MainCtrl
@@ -9,12 +8,8 @@
  */
 angular.module('yapp')
   .controller('LoginCtrl', function($scope, $location) {
-
     $scope.submit = function() {
-
-      $location.path('/dashboard');
-
+     $location.path('/dashboard');
       return false;
     }
-
-  });
+});

@@ -7,64 +7,45 @@
 					<h3 class="panel-title">绩效条目编辑</h3> 
 				</div> 
 				<div class="panel-body"> 
-					<form class="form-horizontal ng-pristine ng-valid-date ng-valid-required ng-invalid ng-invalid-date-disabled" name="templateForm"novalidate ng-submit="submitForm(templateForm.$valid)"> 
-						<div class="form-group" ng-class="{ 'has-error' : templateForm.name.$invalid && !templateForm.name.$pristine }"> 
+					<form class="form-horizontal ng-pristine ng-valid-date ng-valid-required ng-invalid ng-invalid-date-disabled" name="achievementForm"novalidate ng-submit="submitForm(achievementForm.$valid)"> 
+						<div class="form-group" ng-class="{ 'has-error' : achievementForm.name.$invalid && !achievementForm.name.$pristine }"> 
 							<label for="inputtext" class="col-sm-2 control-label">绩效条目名</label> 
 							<div class="col-sm-10"> 
-								<input type="text" class="form-control" name="name" placeholder="即任务/目标" ng-model="template.name" required/> 
-								<p ng-show="templateForm.name.$invalid && !templateForm.name.$pristine" class="help-block">这个是必填的。</p>
+								<input type="text" class="form-control underline" name="name" placeholder="即任务/目标" ng-model="achievement.name" required/> 
+								<p ng-show="achievementForm.name.$invalid && !achievementForm.name.$pristine" class="help-block">这个是必填的。</p>
 							</div> 
 						</div> 
-						<div class="form-group" ng-class="{ 'has-error' : templateForm.percentage.$invalid && !templateForm.percentage.$pristine }"> 
+						<div class="form-group" ng-class="{ 'has-error' : achievementForm.percentage.$invalid && !achievementForm.percentage.$pristine }"> 
 							<label class="col-sm-2 control-label">权重</label> 
 							<div class="col-sm-10"> 
 								<div class="input-group mb-10"> 
-									<input type="number" class="form-control" name="percentage" placeholder="一个季度所有绩效和为100%"ng-model="template.percentage" required/>
-									<span class="input-group-addon">%</span> 
+									<input type="number" class="form-control underline" name="percentage" placeholder="一个季度所有绩效和为100%"ng-model="template.percentage" required/>
+									<span class="input-group-addon underline">%</span> 
 								</div> 
-								<p ng-show="templateForm.percentage.$invalid && !templateForm.percentage.$pristine" class="help-block">这个是必填的。</p>
+								<p ng-show="achievementForm.percentage.$invalid && !achievementForm.percentage.$pristine" class="help-block">这个是必填的。</p>
 							</div> 
 						</div> 
-						<div class="form-group" ng-class="{ 'has-error' : templateForm.detail.$invalid && !templateForm.detail.$pristine }"> 
+						<div class="form-group" ng-class="{ 'has-error' : achievementForm.detail.$invalid && !achievementForm.detail.$pristine }"> 
 							<label for="inputtext" class="col-sm-2 control-label">详细描述</label> 
 							<div class="col-sm-10"> 
 								<textarea class="form-control" rows="7" name="detail" ng-model="template.detail" required/> </textarea>
-								<p ng-show="templateForm.detail.$invalid && !templateForm.detail.$pristine" class="help-block">这个是必填的。</p>
+								<p ng-show="achievementForm.detail.$invalid && !achievementForm.detail.$pristine" class="help-block">这个是必填的。</p>
 							</div> 
 						</div> 
-						<div class="form-group" ng-class="{ 'has-error' : templateForm.lowStandard.$invalid && !templateForm.lowStandard.$pristine }"> 
+						<div class="form-group" ng-class="{ 'has-error' : achievementForm.lowStandard.$invalid && !achievementForm.lowStandard.$pristine }"> 
 							<label for="inputtext" class="col-sm-2 control-label">3.5标准</label> 
 							<div class="col-sm-10"> 
 								<textarea class="form-control" rows="3" name="lowStandard" ng-model="template.lowStandard" required></textarea>
-								<p ng-show="templateForm.lowStandard.$invalid && !templateForm.lowStandard.$pristine" class="help-block">这个是必填的。</p>
+								<p ng-show="achievementForm.lowStandard.$invalid && !achievementForm.lowStandard.$pristine" class="help-block">这个是必填的。</p>
 							</div> 
 						</div> 
-						<div class="form-group" ng-class="{ 'has-error' : templateForm.highStandard.$invalid && !templateForm.highStandard.$pristine }"> 
+						<div class="form-group" ng-class="{'has-error': achievementForm.highStandard.$invalid && !achievementForm.highStandard.$pristine }"> 
 							<label for="inputtext" class="col-sm-2 control-label">3.75标准</label> 
 							<div class="col-sm-10"> 
 								<textarea class="form-control" rows="3" name="highStandard" ng-model="template.highStandard" required></textarea>
-								<p ng-show="templateForm.highStandard.$invalid && !templateForm.highStandard.$pristine" class="help-block">这个是必填的。</p>
+								<p ng-show="achievementForm.highStandard.$invalid && !achievementForm.highStandard.$pristine" class="help-block">这个是必填的。</p>
 							</div> 
 						</div> 
-						<div class="row">
-							<label for="inputtext" class="col-sm-2 control-label">客户</label>
-							<div class="col-sm-10">
-								<div class="input-group">
-									<div class="form-control">
-										<label class="label label-info" id="clientName">严威
-											<button type="button" class="btn btn-info btn-xs" style="border: 0;">
-												<i class="glyphicon glyphicon-remove"></i>
-											</button>
-										</label>
-									</div>
-									<span class="input-group-btn">
-										<button type="button" class="btn btn-default">
-											<i class="glyphicon glyphicon-user"></i>
-										</button>
-									</span>
-								</div>
-							</div>	
-						</div>
 						<hr /> 
 						<!-- <div class="row">
 							<label for="inputtext" class="col-sm-2 control-label">绩效评分</label>
@@ -110,8 +91,7 @@
 						<div class="row">
 							<label for="inputtext" class="col-sm-2 control-label">操作</label>
 							<div class="col-sm-10">  
-								<button type="submit" class="btn btn-primary  btn-rounded" ng-disabled="templateForm.$invalid">提交</button>
-								<button type="button" class="btn btn-success btn-rounded" ng-disabled="templateForm.$invalid">保存</button>
+								<button type="submit" class="btn btn-primary  btn-rounded" ng-disabled="achievementForm.$invalid">提交</button>
 							</div>
 						</div>
 					</form>
@@ -119,7 +99,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-4 col-lg-4" style="border-radius: 10px;">
+	<div class="col-md-4" style="border-radius: 10px;">
 		<div class="panel panel-primary"> 
 			<div class="panel-heading"> 
 				<h3 class="panel-title">价值观标准：</h3> 
@@ -144,6 +124,50 @@
 					<p>团队合作很愉快，可以用自己的专业知识， 补全别的同学在方案上的漏洞，等等</p>
 				</li>
 			</ol>
+		</div>
+		<div class="panel panel-primary">		
+			<div class="panel-heading"> 
+				<h3 class="panel-title">客户列表					
+					<button type="button" class="btn btn-primary pull-right" style="border: 0;padding: 0 3px">添加<i class="glyphicon glyphicon-user"></i></button>
+				</h3> 			
+			</div> 			
+			<div class="input-group clean-fix padding" style="height:auto">
+				<div class="nameDiv">思慕
+					<button type="button" class="btn btn-xs" style="border: 0;">
+						<i class="glyphicon glyphicon-remove"></i>
+					</button>
+
+				</div>
+				<div class="nameDiv">浮尘
+					<button type="button" class="btn btn-xs" style="border: 0;">
+						<i class="glyphicon glyphicon-remove"></i>
+					</button>
+				</div>
+				<div class="nameDiv">思慕
+					<button type="button" class="btn btn-xs" style="border: 0;">
+						<i class="glyphicon glyphicon-remove"></i>
+					</button>
+
+				</div>
+				<div class="nameDiv">浮尘
+					<button type="button" class="btn btn-xs" style="border: 0;">
+						<i class="glyphicon glyphicon-remove"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-primary">		
+			<div class="panel-heading"> 
+				<h3 class="panel-title">客户列表</h3> 
+			</div> 
+			<div class="input-group padding" style="height:auto">
+			<div class="nameDiv">思慕12123</div>					
+				<div class="nameDiv">思慕12</div>
+				<div class="nameDiv">思慕12</div>
+				<div class="nameDiv">思慕12123</div>
+				<div class="nameDiv">思慕123</div>
+				<div class="nameDiv">思慕12123</div>
+			</div>
 		</div>
 	</div>
 </div>

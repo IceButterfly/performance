@@ -14,7 +14,7 @@
   'ngAnimate','yapp.services'
   ])
  .config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.when('/dashboard', '/dashboard/templateManagement');
+  $urlRouterProvider.when('/dashboard', '/dashboard/achievementManagement');
   $urlRouterProvider.otherwise('/login');
 
   $stateProvider
@@ -35,17 +35,29 @@
     templateUrl: 'views/dashboard.html',
     controller: 'DashboardCtrl'
   })
-  .state('templateManagement', {
+  .state('achievementManagement', {
+    url: '/achievementManagement',
+    parent: 'dashboard',
+    templateUrl: 'views/dashboard/achievementManagement.html',
+    controller: 'achievementManagementCtrl'
+  })
+  .state('achievementDetail', {
+    url: '/achievementManagement/:achievementId',
+    parent: 'dashboard',
+    templateUrl: 'views/dashboard/achievementDetail.html',
+    controller: 'achievementDetailCtrl'
+  })
+   .state('templateManagement', {
     url: '/templateManagement',
     parent: 'dashboard',
     templateUrl: 'views/dashboard/templateManagement.html',
     controller: 'templateManagementCtrl'
   })
-  .state('templateManagementDetail', {
+   .state('templateDetail', {
     url: '/templateManagement/:templateId',
     parent: 'dashboard',
-    templateUrl: 'views/dashboard/templateManagementDetail.html',
-    controller: 'templateManagementDetailCtrl'
+    templateUrl: 'views/dashboard/templateDetail.html',
+    controller: 'templateDetailCtrl'
   })
   .state('reports', {
     url: '/reports',
