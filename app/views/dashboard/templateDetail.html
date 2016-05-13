@@ -43,29 +43,15 @@
 						</div> 
 						<div class="form-group" ng-class="{ 'has-error' : templateForm.startTime.$invalid && !templateForm.startTime.$pristine }"> 
 							<label for="inputtext" class="col-sm-2 control-label">绩效开始时间</label> 
-							<div class="col-sm-10"> 
-								<p class="input-group">
-									<input type="text" class="form-control underline" name="startTime" ng-model="template.startTime" required ng-disabled/> 
-									<span class="input-group-btn">
-										<button type="button" class="btn btn-default"  style="border: 0">
-											<i class="glyphicon glyphicon-calendar"></i>
-										</button>
-									</span>
-								</p>
+							<div class="col-sm-10"> 							
+								<input type="text" class="form-control underline" name="startTime" ng-model="template.startTime" required pick-a-date="date" pick-a-date-options="options" placeholder="点选日期"/> 
 								<p ng-show="templateForm.startTime.$invalid && !templateForm.startTime.$pristine" class="help-block">这个是必填的。</p>
 							</div> 
 						</div> 
 						<div class="form-group" ng-class="{ 'has-error' : templateForm.endTime.$invalid && !templateForm.endTime.$pristine }"> 
 							<label for="inputtext" class="col-sm-2 control-label">绩效结束时间</label> 
-							<div class="col-sm-10"> 
-								<p class="input-group">
-									<input type="text" class="form-control underline" name="endTime" ng-model="template.endTime" required/> 
-									<span class="input-group-btn">
-										<button type="button" class="btn btn-default"  style="border: 0">
-											<i class="glyphicon glyphicon-calendar"></i>
-										</button>
-									</span>
-								</p>
+							<div class="col-sm-10"> 								
+								<input type="text" class="form-control underline" name="endTime" ng-model="template.endTime" pick-a-date="date" pick-a-date-options="options" placeholder="点选日期"/> 								
 								<p ng-show="templateForm.endTime.$invalid && !templateForm.endTime.$pristine" class="help-block">这个是必填的。</p>
 							</div> 
 						</div> 

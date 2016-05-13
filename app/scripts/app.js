@@ -11,7 +11,9 @@
  angular
  .module('yapp', [
   'ui.router',
-  'ngAnimate','yapp.services'
+  'ngAnimate',
+  'yapp.services',
+  'angular-datepicker'
   ])
  .config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.when('/dashboard', '/dashboard/achievementManagement');
@@ -59,9 +61,16 @@
     templateUrl: 'views/dashboard/templateDetail.html',
     controller: 'templateDetailCtrl'
   })
-  .state('reports', {
-    url: '/reports',
+  .state('gradeManagement', {
+    url: '/gradeManagement',
     parent: 'dashboard',
-    templateUrl: 'views/dashboard/reports.html'
+    templateUrl: 'views/dashboard/gradeManagement.html',
+     controller: 'gradeManagementCtrl'
+  })
+  .state('gradeDetail', {
+    url: '/gradeManagement/:gradeId',
+    parent: 'dashboard',
+    templateUrl: 'views/dashboard/gradeDetail.html',
+     controller: 'gradeDetailCtrl'
   });
 });
