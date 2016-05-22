@@ -38,13 +38,14 @@ angular.module('yapp')
     }
   };
   $scope.options = {
-    format: 'yyyy年mm月dd日', 
+    format: 'yyyy-mm-dd', 
     monthsFull: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
     weekdaysShort: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
     today: '今天',
     clear: '清除',
     onClose: function(e) {
-      console.log()
+      $scope.template.startTime = Date.parse(new Date($scope.template.startTime));
+      console.log($scope.template.startTime)
   }
 }
 })
