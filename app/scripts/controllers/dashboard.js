@@ -5,10 +5,10 @@ angular.module('yapp')
 })
 .controller('gradeManagementCtrl', function($scope,Achievements,Grades) {
   $scope.Achievements = Achievements.all();
-   $scope.Grades = Grades.all();
+  $scope.Grades = Grades.all();
 })
 .controller('gradeDetailCtrl', function($scope,$stateParams,Grades) {
-   $scope.grade = Grades.get($stateParams.gradeId);
+ $scope.grade = Grades.get($stateParams.gradeId);
 })
 .controller('achievementManagementCtrl', function($scope,Achievements) {
   $scope.Achievements = Achievements.all();
@@ -30,7 +30,7 @@ angular.module('yapp')
     Templates.new();
   };
 })
-.controller('templateDetailCtrl', function($scope,Templates,$stateParams) {
+.controller('templateDetailCtrl', function($scope,Templates,$stateParams,$http,ENV) {
   $scope.template = Templates.get($stateParams.templateId);
   $scope.submitForm = function(isValid) {
     if (isValid) {
@@ -44,8 +44,17 @@ angular.module('yapp')
     today: '今天',
     clear: '清除',
     onClose: function(e) {
-      $scope.template.startTime = Date.parse(new Date($scope.template.startTime));
-      console.log($scope.template.startTime)
-  }
-}
-})
+    }
+  };
+  $http.jsonp( ENV.domain + "performance/department/query/findAll.do" + "?callback=JSON_CALLBACK").success(function(response){
+    $scope.Departments = response.body;
+  }).error(function(){
+    alert("错误");
+  });
+  $http.jsonp( ENV.domain + "/performance/employee/query/findByCondition.do" + "?callback=JSON_CALLBACK&employeeName=").success(function(response){
+   $scope.Employees = response.body;
+   console.log($scope.Employees);
+ }).error(function(){
+  alert("错误");
+});
+});

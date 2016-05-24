@@ -22,6 +22,7 @@ module.exports = function(config) {
       '../bower_components/ui-router/release/angular-ui-router.js',
       '../bower_components/angular-animate/angular-animate.js',
       '../bower_components/angular-native-datepicker/build/angular-datepicker.js',
+      '../bower_components/angucomplete/angucomplete.js',
       // endbower
       '../app/scripts/**/*.js',
       //'../test/mock/**/*.js',

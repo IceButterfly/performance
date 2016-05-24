@@ -19,25 +19,37 @@
 							<label for="inputtext" class="col-sm-2 control-label">部门</label> 
 							<div class="col-sm-10"> 
 								<select class="form-control underline">
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
+									<option ng-repeat="department in Departments">{{department.departmentName}}</option>
 								</select>
 							</div> 
 						</div> 
 						<div class="form-group" ng-class="{ 'has-error': templateForm.ownerUid.$invalid && !templateForm.ownerUid.$pristine }"> 
 							<label for="inputtext" class="col-sm-2 control-label">责任人</label> 
 							<div class="col-sm-10"> 
-								<input type="text" class="form-control underline" name="ownerUid" ng-model="template.ownerUid" required placeholder="输入人名搜索" />
+								<angucomplete type="text" 
+								inputclass="form-control underline" 
+								name="ownerUid" 
+								required 
+								placeholder="输入人名搜索"
+								pause="100"
+								selectedobject="template.ownerUid"
+								localdata="Employees"
+								searchfields="nick"
+								titlefield="nick,name"
+								minlength="1" />
 								<p ng-show="templateForm.ownerUid.$invalid && !templateForm.ownerUid.$pristine" class="help-block">这个是必填的。</p>
 							</div> 
 						</div> 
 						<div class="form-group" ng-class="{ 'has-error':templateForm.statisticsUid.$invalid && !templateForm.statisticsUid.$pristine }"> 
 							<label for="inputtext" class="col-sm-2 control-label">统计人</label> 
 							<div class="col-sm-10"> 
-								<input type="text" class="form-control underline" name="statisticsUid" ng-model="template.statisticsUid" required placeholder="输入人名搜索"/> 
+								<input type="text" 
+								class="form-control underline"
+								 name="statisticsUid" 
+								 ng-model="template.statisticsUid" 
+								 required 
+								 placeholder="输入人名搜索"
+								 /> 
 								<p ng-show="templateForm.statisticsUid.$invalid && !templateForm.statisticsUid.$pristine" class="help-block">这个是必填的。</p>
 							</div> 
 						</div> 
@@ -51,7 +63,7 @@
 						<div class="form-group" ng-class="{ 'has-error' : templateForm.endTime.$invalid && !templateForm.endTime.$pristine }"> 
 							<label for="inputtext" class="col-sm-2 control-label">绩效结束时间</label> 
 							<div class="col-sm-10"> 								
-								<input type="text" class="form-control underline" name="endTime" ng-model="template.endTime" pick-a-date="date" pick-a-date-options="options" placeholder="点选日期"/> 
+								<input type="text" class="form-control underline" name="endTime" ng-model="template.endTime" required pick-a-date="date" pick-a-date-options="options" placeholder="点选日期"/> 
 								<p ng-show="templateForm.endTime.$invalid && !templateForm.endTime.$pristine" class="help-block">这个是必填的。</p>
 							</div> 
 						</div> 
