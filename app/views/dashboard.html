@@ -3,12 +3,12 @@
     <div class="row">
       <div class="col-sm-3 col-md-2 sidebar">
        <div class="text-center">
-        <h2 class="brand">刘 芒 <small>前端开发</small></h2>
+        <h2 class="brand">{{user.name}} <small>{{user.nick}}</small></h2>
         <img src="images/flat-avatar.png" class="user-avatar" /><br />
         <a ui-sref="login" class="btn btn-white btn-outline btn-rounded btn-sm">登出</a>
       </div>
       <ul class="nav nav-sidebar">
-          <li ng-class="{active: $state.includes('templateManagement')}"><a ui-sref="templateManagement">模板管理</a></li>
+      <li ng-class="{active: $state.includes('templateManagement')}" ng-show="Session.roleType == '8'"><a ui-sref="templateManagement">模板管理</a></li>
         <li ng-class="{active: $state.includes('achievementManagement')}"><a ui-sref="achievementManagement">绩效管理</a></li>
         <li ng-class="{active: $state.includes('gradeManagement')}"><a ui-sref="gradeManagement">评价管理</a></li>
       </ul>

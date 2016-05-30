@@ -1,75 +1,39 @@
 'use strict';
 angular.module('yapp.services', [])
-.factory('Achievements',function() {
-  var Achievements = [{
-    id: 0,
-    name: '绩效1'
-  },
-  {
-    id: 1,
-    name: '绩效2'
-  },
-  {
-    id: 2,
-    name: '绩效3'
-  }];
+.factory('Achievements',function($http,ENV,Session) {
   return {
-    all: function() {
-      return Achievements;
-    },
-    get: function(achievementId) {
-      for (var i = 0; i < Achievements.length; i++) {
-        if (Achievements[i].id === parseInt(achievementId)) {
-          return Achievements[i];
-        }
-      }
-      return null;
-    },
-    new: function() {
-      var Alength = Achievements.length;
-      var achievement = {
-        id: Alength + 1,
-        name: '模板' + (Alength + 1)
-      };
-      Achievements.push(achievement);
+    all: function(pfinId) {
+      return $http.jsonp(ENV.domain+'performance/performanceInstance/query/findById.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId +'&pfinId='+pfinId)
     }
   }
 })
-.factory('Templates',function() {
-  var Templates = [{
-    id: 0,
-    name: '模板1'
-  },
-  {
-    id: 1,
-    name: '模板2'
-  },
-  {
-    id: 2,
-    name: '模板3'
-  }];
+
+.factory('Templates',function($http,ENV,Session) {
   return {
+   Simpleall: function() {
+      return $http.jsonp(ENV.domain+'performance/performanceTemplate/query/findSimplePerformanceTemplateList.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId)
+    },
     all: function() {
-      return Templates;
+      return $http.jsonp(ENV.domain+'performance/performanceTemplate/query/findPerformanceTemplateList.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId)
     },
-    get: function(templateId) {
-      for (var i = 0; i < Templates.length; i++) {
-        if (Templates[i].id === parseInt(templateId)) {
-          return Templates[i];
-        }
-      }
-      return null;
+    delete:function(id){
+      return $http.jsonp(ENV.domain+'performance/performanceTemplate/write/deletePerformanceTemplateById.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId + "&pfmcId=" + id)
     },
-    new: function() {
-      var Tlength = Templates.length;
-      var template = {
-        id: Tlength + 1,
-        name: '模板' + (Tlength + 1)
-      };
-      Templates.push(template);
+    create:function(id){
+      return $http.jsonp(ENV.domain+'performance/performanceTemplate/write/createInstance.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId + "&pfmcId=" + id)
+    },
+    startGrade:function(id){
+      return $http.jsonp(ENV.domain+'performance/performanceTemplate/write/startGrade.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId + "&pfmcId=" + id)  
+    },
+    overGrade:function(id){
+      return $http.jsonp(ENV.domain+'performance/performanceTemplate/write/overGrade.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId + "&pfmcId=" + id)  
+    },
+    endPerformance:function(id){
+      return $http.jsonp(ENV.domain+'performance/performanceTemplate/write/endPerformance.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId + "&pfmcId=" + id)  
     }
   }
 })
+
 .factory('Grades',function(){
   var Grades = [{
     id:0,
@@ -107,4 +71,24 @@ return {
     return null;
   }
 }
+})
+
+.service('Session', function () {
+  this.create = function (userId, email, organizationType,roleType,roleTypeText,newSessionId) {
+    this.userId = userId;
+    this.email = email;
+    this.organizationType = organizationType;
+    this.roleType = roleType;
+    this.roleTypeText = roleTypeText;
+    this.newSessionId = newSessionId;   
+  };
+  this.destroy = function () {
+    this.userId = null;
+    this.email = null;
+    this.organizationType = null;
+    this.email = null;
+    this.organizationType = null;
+    this.newSessionId = null;   
+  };
+  return this;
 })

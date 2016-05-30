@@ -47,47 +47,6 @@
 							</div> 
 						</div> 
 						<hr /> 
-						<!-- <div class="row">
-							<label for="inputtext" class="col-sm-2 control-label">绩效评分</label>
-							<div class="col-sm-10" style="padding:7px 15px 0;">  
-								<label class="radio1" for="Option3"> 
-									<input id="Option3" name="one" type="radio" checked="true">
-									<span></span> 
-									<b>3.25</b>
-								</label> 
-								<label class="radio1" for="Option2"> 
-									<input id="Option2" name="one" type="radio"> 
-									<span></span> 
-									<b>3.55</b>
-								</label> 
-								<label class="radio1" for="Option1">
-									<input id="Option1" name="one" type="radio"> 
-									<span></span> 
-									<b>3.75</b>
-								</label>
-							</div>
-						</div> 
-						<div class="row">
-							<label for="inputtext" class="col-sm-2 control-label">价值观评分</label>
-							<div class="col-sm-10" style="padding:7px 15px 0 15px;">
-								<label class="radio1" for="Option5"> 
-									<input id="Option5" name="two" type="radio" checked="true"> 
-									<span></span> 
-									<b>C</b>
-								</label> 
-								<label class="radio1" for="Option5"> 
-									<input id="Option5" name="two" type="radio"> 
-									<span></span> 
-									<b>B</b>
-								</label> 
-								<label class="radio1" for="Option4">
-									<input id="Option4" name="two" type="radio"> 
-									<span></span> 
-									<b>A</b>
-								</label>
-							</div>
-						</div> 
-						<hr/>-->
 						<div class="row">
 							<label for="inputtext" class="col-sm-2 control-label">操作</label>
 							<div class="col-sm-10">  
@@ -128,35 +87,18 @@
 		<div class="panel panel-primary">		
 			<div class="panel-heading"> 
 				<h3 class="panel-title">客户列表					
-					<button type="button" class="btn btn-primary pull-right" style="border: 0;padding: 0 3px">添加<i class="glyphicon glyphicon-user"></i></button>
+					<button type="button" class="btn btn-primary pull-right" style="border: 0;padding: 0 3px" ng-click="findAllEmployees()">添加<i class="glyphicon glyphicon-user"></i></button>
 				</h3> 			
 			</div> 			
 			<div class="input-group clean-fix padding" style="height:auto">
-				<div class="nameDiv">思慕
-					<button type="button" class="btn btn-xs" style="border: 0;">
-						<i class="glyphicon glyphicon-remove"></i>
-					</button>
-
-				</div>
-				<div class="nameDiv">浮尘
-					<button type="button" class="btn btn-xs" style="border: 0;">
-						<i class="glyphicon glyphicon-remove"></i>
-					</button>
-				</div>
-				<div class="nameDiv">思慕
-					<button type="button" class="btn btn-xs" style="border: 0;">
-						<i class="glyphicon glyphicon-remove"></i>
-					</button>
-
-				</div>
-				<div class="nameDiv">浮尘
-					<button type="button" class="btn btn-xs" style="border: 0;">
+				<div class="nameDiv" ng-repeat="employee in Employees">{{employee.name}}
+					<button type="button" class="btn btn-xs" style="border: 0;" ng-click="deleteEmployee(employee)">
 						<i class="glyphicon glyphicon-remove"></i>
 					</button>
 				</div>
 			</div>
 		</div>
-		<div class="panel panel-primary">		
+		<!-- <div class="panel panel-primary">		
 			<div class="panel-heading"> 
 				<h3 class="panel-title">客户列表</h3> 
 			</div> 
@@ -168,7 +110,7 @@
 				<div class="nameDiv">思慕123</div>
 				<div class="nameDiv">思慕12123</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </div>
 </div>

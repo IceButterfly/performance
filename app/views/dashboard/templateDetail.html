@@ -7,50 +7,52 @@
 					<h3 class="panel-title">模板条目编辑</h3> 
 				</div> 
 				<div class="panel-body"> 
-					<form class="form-horizontal ng-pristine ng-valid-date ng-valid-required ng-invalid ng-invalid-date-disabled" name="templateForm"novalidate ng-submit="submitForm(templateForm.$valid)"> 
+					<form class="form-horizontal ng-pristine ng-valid-date ng-valid-required ng-invalid ng-invalid-date-disabled" name="templateForm"novalidate ng-submit="submitForm(template)"> 
 						<div class="form-group" ng-class="{ 'has-error' : templateForm.name.$invalid && !templateForm.name.$pristine }"> 
 							<label for="inputtext" class="col-sm-2 control-label">模板条目名</label> 
 							<div class="col-sm-10"> 
 								<input type="text" class="form-control underline" name="name" ng-model="template.name" required/> 
+								<p ng-show="templateForm.name.$invalid && !templateForm.name.$pristine" class="help-block">这个是必填的。</p>
 							</div> 
-							<p ng-show="templateForm.name.$invalid && !templateForm.name.$pristine" class="help-block">这个是必填的。</p>
 						</div> 
 						<div class="form-group"> 
 							<label for="inputtext" class="col-sm-2 control-label">部门</label> 
 							<div class="col-sm-10"> 
-								<select class="form-control underline">
-									<option ng-repeat="department in Departments">{{department.departmentName}}</option>
+								<select class="form-control underline" ng-model="template.departmentId" ng-options="department.id as department.departmentName for department in Departments">
+									<option value="">请选择部门</option>
 								</select>
 							</div> 
 						</div> 
-						<div class="form-group" ng-class="{ 'has-error': templateForm.ownerUid.$invalid && !templateForm.ownerUid.$pristine }"> 
+						<div class="form-group"> 
 							<label for="inputtext" class="col-sm-2 control-label">责任人</label> 
 							<div class="col-sm-10"> 
 								<angucomplete type="text" 
+								id="ownerUid"
 								inputclass="form-control underline" 
-								name="ownerUid" 
-								required 
+								name="owner" 
 								placeholder="输入人名搜索"
 								pause="100"
 								selectedobject="template.ownerUid"
 								localdata="Employees"
-								searchfields="nick"
-								titlefield="nick,name"
+								searchfields="nick,name"
+								titlefield="nick"
 								minlength="1" />
-								<p ng-show="templateForm.ownerUid.$invalid && !templateForm.ownerUid.$pristine" class="help-block">这个是必填的。</p>
 							</div> 
 						</div> 
-						<div class="form-group" ng-class="{ 'has-error':templateForm.statisticsUid.$invalid && !templateForm.statisticsUid.$pristine }"> 
+						<div class="form-group" > 
 							<label for="inputtext" class="col-sm-2 control-label">统计人</label> 
 							<div class="col-sm-10"> 
-								<input type="text" 
-								class="form-control underline"
-								 name="statisticsUid" 
-								 ng-model="template.statisticsUid" 
-								 required 
-								 placeholder="输入人名搜索"
-								 /> 
-								<p ng-show="templateForm.statisticsUid.$invalid && !templateForm.statisticsUid.$pristine" class="help-block">这个是必填的。</p>
+								<angucomplete type="text" 
+								id="statisticsUid"
+								inputclass="form-control underline" 
+								name="statistics" 
+								placeholder="输入人名搜索"
+								pause="100"
+								selectedobject="template.statisticsUid"
+								localdata="Employees"
+								searchfields="nick,name"
+								titlefield="nick"
+								minlength="1" />
 							</div> 
 						</div> 
 						<div class="form-group" ng-class="{ 'has-error' : templateForm.startTime.$invalid && !templateForm.startTime.$pristine }"> 
