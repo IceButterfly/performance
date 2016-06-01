@@ -1,6 +1,6 @@
 'use strict';
 angular.module('yapp')
-.controller('LoginCtrl', function($scope, $rootScope, $location,$http,ENV,USER_ROLES,md5,Session,ngDialog){
+.controller('LoginCtrl', function($scope, $location,$http,ENV,md5,Session,ngDialog){
 	Session.destroy();
 	function toLogin(credentials){		
 		$http.jsonp(ENV.domain+'gwlogin/user/login.do?callback=JSON_CALLBACK&account='+credentials.username+"&passwd="+credentials.password+"&roleRefer="+credentials.roleRefer)

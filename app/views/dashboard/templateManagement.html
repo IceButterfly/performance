@@ -35,16 +35,11 @@
 				</div> 
 				<div class="panel-body">
 					<table class="table"> 
-						<tr>
-							<th>时间</th>
-							<th>绩效名称</th> 
-							<th></th> 
+						<tr ng-repeat="template in Templates" ng-show="template.status==1||template.status==2">
+							<td>{{template.startTime | date:'yyyy-MM-dd'}}</td>
+							<td>{{template.name}}</td> 
+							<td><a href="#/dashboard/checkManagement/{{template.id}}">开始审核</a></td>
 						</tr> 
-						<tr>
-							<td>2016年5月10日</td>
-							<td>绩效1</td> 
-							<td><a href="">详细</a></td>
-						</tr>
 					</table>
 				</div> 
 			</div>

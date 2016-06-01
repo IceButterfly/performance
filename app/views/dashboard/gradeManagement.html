@@ -1,44 +1,24 @@
 <div class="container-fluid">
 	<div class="row-fluid">
 		<span class="glyphicon glyphicon-dashboard bg-fade"></span>
-		<div class="col-md-8 col-lg-8">
+		<div class="col-md-4 col-lg-4" ng-repeat="list in Grades">
 			<div class="tabbable tabs-left" >
 				<ul class="nav nav-pills nav-stacked">
-					<li ng-repeat="list in Grades" class="panel panel-primary">
+					<li  class="panel panel-primary">
 						<div>
 							<div class="panel-heading bg-primary">
-								<span class="panel-title">我的他评项目</span>
+								<span class="panel-title">待评项目</span>
 								<span class="pull-right"> 待评人：{{list.name}}</span>
 							</div>
 							<div>
-								<a type="button" class="btn btn-default" style="display:block;text-align: left;margin: 10px;" href="#/dashboard/gradeManagement/{{grade.id}}" ng-repeat="grade in list.gradeList">
-									<h3>
+								<a type="button" class="btn btn-default" style="display:block;text-align: left;margin: 10px;" href="#/dashboard/gradeManagement/{{grade.id}}" ng-repeat="grade in list.taskList">
+									<h4>
 										<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-										{{grade.name}}
+										{{grade.title}}
 										<span class="pull-right">开始评价</span>
-									</h3>
+									</h4>
 								</a>
 							</div>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<div class="col-md-4 col-lg-4">
-			<div class="tabbable tabs-left" >
-				<ul class="nav nav-pills nav-stacked">
-					<li ng-repeat="achievement in Achievements" class="panel panel-primary">
-						<div>
-							<div class="panel-heading bg-primary">
-								<span class="panel-title">我的自评项目</span>
-							</div>
-							<a type="button" class="btn btn-default" style="display: block;text-align: left;border-top-right-radius:0;border-top-left-radius:0;" href="#/dashboard/achievementManagement/{{achievement.id}}">
-								<h3>
-									<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-									{{achievement.name}}
-									<span class="pull-right">开始评价</span>
-								</h3>
-							</a>
 						</div>
 					</li>
 				</ul>

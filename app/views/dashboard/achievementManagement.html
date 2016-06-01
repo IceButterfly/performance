@@ -1,18 +1,18 @@
 <div class="container-fluid">
 	<div class="row-fluid">
 		<span class="glyphicon glyphicon-dashboard bg-fade"></span>
-		<div class="col-md-8 col-lg-8">
+		<div class="col-md-6 col-lg-6">
 			<div class="tabbable tabs-left" >
 				<ul class="nav nav-pills nav-stacked">
-					<li ng-repeat="template in Templates" class="panel panel-primary" ng-show="template.status == 2">
+					<li class="panel panel-primary">
 						<div>
 							<div class="panel-heading bg-primary">
 								<span class="panel-title">模板条目</span>
+								<button type="button" class="btn btn-primary pull-right" style="border: 0;padding: 0 3px" ng-click="submitInstance(Instance.id)">提交</button>
 							</div>
-							<a type="button" class="btn btn-default" style="display: block;text-align: left;border-top-right-radius:0;border-top-left-radius:0;" href="#/dashboard/achievementManagement/{{template.id}}" >
+							<a type="button" class="btn btn-default" style="display: block;text-align: left;border-top-right-radius:0;border-top-left-radius:0;" href="#/dashboard/achievementManagement/{{Instance.id}}" ng-show="Instance.id">
 								<h3>
-									<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-									{{template.name}}
+									{{Instance.assessName}}
 								</h3>
 							</a>
 						</div>
@@ -20,25 +20,49 @@
 				</ul>
 			</div>
 		</div>
-		<div class="col-md-4 col-lg-4">
+		<div class="col-md-3 col-lg-3">
 			<div class="panel panel-primary"> 
 				<div class="panel-heading"> 
-					<h3 class="panel-title">历史绩效条目</h3> 
+					<h3 class="panel-title">查询绩效条目</h3> 
 				</div> 
-				<div class="panel-body">
+				<div>
 					<table class="table"> 
 						<tr>
 							<th>开始时间</th>
 							<th>任务名称</th> 
 							<th></th> 
 						</tr> 
-						<tr ng-repeat="template in Templates" ng-show="template.status == 5">
+						<tr ng-repeat="template in Templates">
 							<td>{{template.startTime | date:'yyyy-MM-dd'}}</td>
 							<td>{{template.name}}</td> 
-							<td><a href="">详细</a></td>
+							<td><button type="button" class="btn btn-sm" ng-click="getInstance(template.id)" style="line-height:1">查询</button></td>
 						</tr>
 					</table>
 				</div> 
+			</div>
+		</div>
+		<div class="col-md-3" style="border-radius: 10px;">
+			<div class="panel panel-primary"> 
+				<div class="panel-heading"> 
+					<h3 class="panel-title">提示：</h3> 
+				</div> 
+				<ol style="margin-top: 10px;">
+					<li class="text-danger">
+						<p>请点击对应模板名开始查询自己的实例，然后新建绩效条目并提交</p>
+					</li>
+					<li class="text-warning">
+						<p>绩效条目提交后，再提交模板</p>
+					</li>
+					<li class="text-success">
+						<p>模板条目提交后，由负责人进行审核。</p>
+					</li>
+					<li class="text-info">
+						<p>审核完成之前，可以做修改删除操作，负责人审核完成之后无法操作。</p>
+					</li>
+					<li class="text-primary">
+						<p>页面刷新就需要重新登陆。</p>
+					</li>
+				</ol>
 			</div>
 		</div>
 	</div>

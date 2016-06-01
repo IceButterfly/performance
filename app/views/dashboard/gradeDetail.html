@@ -7,18 +7,18 @@
 					<h3 class="panel-title">绩效条目编辑</h3> 
 				</div> 
 				<div class="panel-body"> 
-					<form class="form-horizontal ng-pristine ng-valid-date ng-valid-required ng-invalid ng-invalid-date-disabled" name="achievementForm" novalidate> 
+					<form class="form-horizontal ng-pristine ng-valid-date ng-valid-required ng-invalid ng-invalid-date-disabled" name="achievementForm" novalidate ng-submit="submitForm(grade)"> 
 						<div class="form-group"> 
 							<label for="inputtext" class="col-sm-2 control-label">绩效条目名</label> 
 							<div class="col-sm-10"> 
-								<input type="text" class="form-control underline" name="name" placeholder="即任务/目标" ng-model="grade.name"/> 
+								<input type="text" class="form-control underline" name="name" placeholder="即任务/目标" ng-model="grade.title"/> 
 							</div> 
 						</div> 
 						<div class="form-group"> 
 							<label class="col-sm-2 control-label">权重</label> 
 							<div class="col-sm-10"> 
 								<div class="input-group mb-10"> 
-									<input type="number" class="form-control underline" name="percentage" placeholder="一个季度所有绩效和为100%"ng-model="grade.percentage" />
+									<input type="number" class="form-control underline" name="percentage" placeholder="一个季度所有绩效和为100%" ng-model="grade.percentage" />
 									<span class="input-group-addon underline">%</span> 
 								</div> 
 							</div> 
@@ -26,61 +26,67 @@
 						<div class="form-group"> 
 							<label for="inputtext" class="col-sm-2 control-label">详细描述</label> 
 							<div class="col-sm-10"> 
-								<textarea class="form-control" rows="7" name="detail" ng-model="grade.detail" /> </textarea>
+								<textarea class="form-control" rows="7" name="detail" ng-model="grade.description" /> </textarea>
 							</div> 
 						</div> 
 						<div class="form-group"> 
 							<label for="inputtext" class="col-sm-2 control-label">3.5标准</label> 
 							<div class="col-sm-10"> 
-								<textarea class="form-control" rows="3" name="lowStandard" ng-model="grade.lowStandard"></textarea>
+								<textarea class="form-control" rows="3" name="lowStandard" ng-model="grade.basicStandard"></textarea>
 							</div> 
 						</div> 
 						<div class="form-group"> 
 							<label for="inputtext" class="col-sm-2 control-label">3.75标准</label> 
 							<div class="col-sm-10"> 
-								<textarea class="form-control" rows="3" name="highStandard" ng-model="grade.highStandard"></textarea>
+								<textarea class="form-control" rows="3" name="highStandard" ng-model="grade.beyondStandard"></textarea>
 							</div> 
 						</div> 
 						<hr /> 
-						 <div class="row">
+						<div class="row">
 							<label for="inputtext" class="col-sm-2 control-label">绩效评分</label>
 							<div class="col-sm-10" style="padding:7px 15px 0;">  
-								<label class="radio1" for="Option3"> 
-									<input id="Option3" name="one" type="radio" checked="true">
-									<span></span> 
-									<b>3.25</b>
-								</label> 
-								<label class="radio1" for="Option2"> 
-									<input id="Option2" name="one" type="radio"> 
-									<span></span> 
-									<b>3.55</b>
-								</label> 
 								<label class="radio1" for="Option1">
-									<input id="Option1" name="one" type="radio"> 
+									<input id="Option1" name="one" type="radio" value="1" ng-model="grade.score"> 
 									<span></span> 
 									<b>3.75</b>
 								</label>
+								<label class="radio1" for="Option2"> 
+									<input id="Option2" name="one" type="radio" value="2" ng-model="grade.score"> 
+									<span></span> 
+									<b>3.5</b>
+								</label> 
+								<label class="radio1" for="Option3"> 
+									<input id="Option3" name="one" type="radio" value="3" ng-model="grade.score">
+									<span></span> 
+									<b>3.25</b>
+								</label> 
 							</div>
 						</div> 
 						<div class="row">
 							<label for="inputtext" class="col-sm-2 control-label">价值观评分</label>
 							<div class="col-sm-10" style="padding:7px 15px 0 15px;">
-								<label class="radio1" for="Option5"> 
-									<input id="Option5" name="two" type="radio" checked="true"> 
-									<span></span> 
-									<b>C</b>
-								</label> 
-								<label class="radio1" for="Option6"> 
-									<input id="Option6" name="two" type="radio"> 
-									<span></span> 
-									<b>B</b>
-								</label> 
 								<label class="radio1" for="Option4">
-									<input id="Option4" name="two" type="radio"> 
+									<input id="Option4" name="two" type="radio" value="1" ng-model="grade.conceptScore"> 
 									<span></span> 
 									<b>A</b>
 								</label>
+								<label class="radio1" for="Option6"> 
+									<input id="Option6" name="two" type="radio" value="2" ng-model="grade.conceptScore"> 
+									<span></span> 
+									<b>B</b>
+								</label> 
+								<label class="radio1" for="Option5"> 
+									<input id="Option5" name="two" type="radio" value="3" ng-model="grade.conceptScore"> 
+									<span></span> 
+									<b>C</b>
+								</label> 
 							</div>
+						</div> 
+						<div class="form-group" ng-show="grade.conceptScore==1||grade.score==1"> 
+							<label for="inputtext" class="col-sm-2 control-label">理由</label> 
+							<div class="col-sm-10"> 
+								<textarea class="form-control" rows="3" name="highStandard" ng-model="grade.reason"></textarea>
+							</div> 
 						</div> 
 						<hr/>
 						<div class="row">
@@ -125,12 +131,18 @@
 				<h3 class="panel-title">客户列表</h3> 
 			</div> 
 			<div class="input-group padding" style="height:auto">
-			<div class="nameDiv">思慕12123</div>					
-				<div class="nameDiv">思慕12</div>
-				<div class="nameDiv">思慕12</div>
-				<div class="nameDiv">思慕12123</div>
-				<div class="nameDiv">思慕123</div>
-				<div class="nameDiv">思慕12123</div>
+				<div class="nameDiv" ng-repeat="customer in Customeres">{{customer.name}}</div>					
+			</div>
+		</div>
+		<div class="panel panel-primary">		
+			<div class="panel-heading"> 
+				<h3 class="panel-title">自评分</h3> 
+			</div> 
+			<div class="input-group padding">
+				<div class="nameDiv">
+					<span>{{score.scoreValue}}</span>
+					<span>{{score.conceptScoreValue}}</span>
+				</div>		
 			</div>
 		</div>
 	</div>

@@ -1,14 +1,7 @@
 "use strict";
- angular.module("yapp.config", [])
-.constant("ENV", {
-  "version": "1",
-  "name": "绩效系统",
-  "debug": false,
-  "domain": "http://192.168.158.204:8080/"
-})
-.constant('USER_ROLES', {
-  all: '*',
-  admin: 'admin',
-  editor: 'editor',
-  guest: 'guest'
+angular.module("yapp.config", []).constant("ENV", {
+	"version": "1",
+	"name": "绩效系统",
+	"debug": false,
+	"domain": "http://192.168.158.204:8080/"
 })

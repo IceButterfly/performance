@@ -8,9 +8,10 @@
         <a ui-sref="login" class="btn btn-white btn-outline btn-rounded btn-sm">登出</a>
       </div>
       <ul class="nav nav-sidebar">
-      <li ng-class="{active: $state.includes('templateManagement')}" ng-show="Session.roleType == '8'"><a ui-sref="templateManagement">模板管理</a></li>
+        <li ng-class="{active: $state.includes('templateManagement')}" ng-show="Session.roleType == '8'"><a ui-sref="templateManagement">模板管理</a></li>
         <li ng-class="{active: $state.includes('achievementManagement')}"><a ui-sref="achievementManagement">绩效管理</a></li>
         <li ng-class="{active: $state.includes('gradeManagement')}"><a ui-sref="gradeManagement">评价管理</a></li>
+        <li ng-class="{active: $state.includes('gradeManagement')}" ng-show="Session.roleType == '8'"><a ui-sref="report">查看报表</a></li>
       </ul>
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ui-view style="background: url(../images/dseed.png);">
