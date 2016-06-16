@@ -19,7 +19,7 @@ angular.module('yapp')
 	});
 })
 
-.controller('gradeManagementCtrl', function($scope,Achievements,Grades) {
+.controller('gradeManagementCtrl', function($scope,Achievements,Grades,$rootScope) {
 	Grades.all().success(function (res) {
 		if (!res.success) {
 			$rootScope.clickToOpen(res.errMsg);
@@ -29,6 +29,21 @@ angular.module('yapp')
 				$scope.Grades = [];
 			}else{      
 				$scope.Grades = res.body;
+			}
+		}
+	}).error(function(res){
+		$rootScope.clickToOpen("错误");
+	}) ;
+
+	Grades.getSelf().success(function (res) {
+		if (!res.success) {
+			$rootScope.clickToOpen(res.errMsg);
+			return false;
+		}else{
+			if (!res.body) {
+				$scope.selfGrades = [];
+			}else{      
+				$scope.selfGrades = res.body;
 			}
 		}
 	}).error(function(res){
@@ -47,20 +62,24 @@ angular.module('yapp')
 			}else{      
 				$scope.grade = res.body;
 				$scope.Customeres =  res.body['customerVOList']
-				$scope.grade.score = 1;
-				$scope.grade.conceptScore = 1;
 			}
 		}
 	}).error(function(res){
 		$rootScope.clickToOpen("错误");
 	}) ;
-	Grades.find($stateParams.gradeId).success(function (res) {
+	Grades.find($stateParams.gradeId).success(function (res) {		
 		if (!res.success) {
 			$rootScope.clickToOpen(res.errMsg);
 			return false;
 		}else{
-			if (!res.body) {
-				$scope.score = {conceptScoreValue:'还未自评'};
+			$scope.score = res.body;
+			if(!res.body.conceptScoreValue){
+				$scope.score.score = 1;
+				$scope.score.conceptScore = 1;
+			}
+			if (!res.body.selfConceptScoreValue) {
+				$scope.score.selfConceptScoreValue = '还未自评',
+				$scope.score.selfScoreValue = "";
 			}else{      
 				$scope.score = res.body;
 			}
@@ -68,14 +87,14 @@ angular.module('yapp')
 	}).error(function(res){
 		$rootScope.clickToOpen("错误");
 	}) ;
-	$scope.submitForm = function(grade){
-		if(grade.conceptScore==1||grade.score==1){
-			if (!grade.reason) {
+	$scope.submitForm = function(score){
+		if(score.conceptScore==1||score.score==1){
+			if (!score.reason) {
 				$rootScope.clickToOpen("填写3.75或A时,请填写理由");
 				return false;
 			}
 		}
-		$http.jsonp( ENV.domain + "performance/score/write/updateScore.do?callback=JSON_CALLBACK&sessionId="+Session.newSessionId+"&score="+grade.score +"&conceptScore="+ grade.conceptScore +"&reason="+grade.reason+"&scoreId="+grade.id)
+		$http.jsonp(ENV.domain + "performance/score/write/updateScore.do?callback=JSON_CALLBACK&sessionId="+Session.newSessionId+"&score="+score.score +"&conceptScore="+ score.conceptScore +"&reason="+score.reason+"&scoreId="+score.id)
 		.success(function(res){
 			if (!res.success) {
 				$rootScope.clickToOpen(res.errMsg);
@@ -87,7 +106,10 @@ angular.module('yapp')
 		}).error(function(res){
 			$rootScope.clickToOpen(res.errMsg);
 		});		
-	}
+	};
+	$scope.goBack = function(){
+		history.back(-1)
+	};
 })
 
 .controller('findAllEmployeesCtrl', function($scope,Session,$http,ENV) {
@@ -101,11 +123,8 @@ angular.module('yapp')
 	};
 })
 
-.controller('achievementDetailCtrl', function($scope,Achievements,$stateParams,ngDialog,Session,$http,ENV,$state,$rootScope) {
-	var achievementJson = '';
-	var customerIdList = '';
+.controller('achievementDetailCtrl', function($scope,Achievements,$stateParams,Session,$http,ENV,$state,$rootScope,ngDialog) {
 	$scope.Employees = [];
-	$scope.InstanceId = $stateParams.InstanceId;
 	if ($stateParams.taskId) {
 		$http.jsonp(ENV.domain+'performance/task/query/findById.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId+"&taskId="+$stateParams.taskId)
 		.success(function (res) {
@@ -124,49 +143,50 @@ angular.module('yapp')
 	}
 	$scope.$on("parentSeleteEmployees",function (event,employee) {
 		for (var i = 0; i < $scope.Employees.length; i++) {
-			if ($scope.Employees[i] === employee) {
-				return true;
+			if ($scope.Employees[i].id === employee.id) {
+				return;
 			}
 		}
 		$scope.Employees.push(employee)
 	});
 	$scope.changeForm = function(achievement) {
-		delete achievement['customerIdList'];
-		delete achievement['customerVOList'];
+		var achievementJson = '';
+		var customerIdList = '';
 		achievement['taskId'] = $stateParams.taskId;
 		for(var i in $scope.Employees){
 			customerIdList += $scope.Employees[i].id+',';
 		}
-		for(var i in achievement){
-			achievementJson += "&" + i +"="+ achievement[i];
-		}
-		$http.jsonp(ENV.domain+'performance/task/write/updateTask.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId+achievementJson+'&customerIdList='+customerIdList)
+		var description = encodeURI(achievement.description);
+		var basicStandard = encodeURI(achievement.basicStandard);
+		var beyondStandard = encodeURI(achievement.beyondStandard);
+		$http.jsonp(ENV.domain+'performance/task/write/updateTask.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId+'&basicStandard='+basicStandard+'&beyondStandard='+beyondStandard+'&description='+description+'&id='+achievement.id+'&percentage='+achievement.percentage+'&pfmcInstanceId='+achievement.pfmcInstanceId+'&title='+achievement.title+'&taskId='+achievement.taskId+'&customerIdList='+customerIdList)
 		.success(function (res) {
 			if (!res.success) {
 				$rootScope.clickToOpen(res.errMsg);
 				return false;
 			}else{
 				$rootScope.clickToOpen('修改成功！')
-				$state.go('instanceList',{InstanceId:$scope.InstanceId})
+				$state.go('instanceList',{instanceId:$stateParams.instanceId})
 			}
 		})
 	}
 	$scope.submitForm = function(achievement) {
-		achievement['pfinId'] = $scope.InstanceId;
+		var customerIdList = '';
+		achievement['pfinId'] =  $stateParams.instanceId;
 		for(var i in $scope.Employees){
 			customerIdList += $scope.Employees[i].id+',';
 		}
-		for(var i in achievement){
-			achievementJson += "&" + i +"="+ achievement[i];
-		}
-		$http.jsonp(ENV.domain+'performance/task/write/addTask.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId+achievementJson +'&customerIdList='+customerIdList)
+		var description = encodeURI(achievement.description);
+		var basicStandard = encodeURI(achievement.basicStandard);
+		var beyondStandard = encodeURI(achievement.beyondStandard);
+		$http.jsonp(ENV.domain+'performance/task/write/addTask.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId+'&basicStandard='+basicStandard+'&beyondStandard='+beyondStandard+'&description='+description+'&id='+achievement.id+'&percentage='+achievement.percentage+'&pfmcInstanceId='+achievement.pfmcInstanceId+'&title='+achievement.title+'&pfinId='+achievement.pfinId+'&customerIdList='+customerIdList)
 		.success(function (res) {
 			if (!res.success) {
 				$rootScope.clickToOpen(res.errMsg);
 				return false;
 			}else{
 				$rootScope.clickToOpen('提交成功！')
-				$state.go('instanceList',{InstanceId:$scope.InstanceId})
+				$state.go('instanceList',{instanceId:$stateParams.instanceId})
 			}
 		})
 	}
@@ -176,19 +196,26 @@ angular.module('yapp')
 	$scope.deleteEmployee = function (employee) {
 		$scope.Employees.splice($scope.Employees.indexOf(employee), 1);
 	};
+	$scope.goBack = function(){
+		history.back(-1)
+	};
 })
 
 .controller('instanceListCtrl', function($scope,$stateParams,Achievements,$rootScope,$http,ENV,Session,$state) {
-	$scope.InstanceId = $stateParams.InstanceId;
-	Achievements.all($scope.InstanceId).success(function (res) {
+	$scope.instanceId = $stateParams.instanceId;
+	Achievements.all($scope.instanceId).success(function (res) {
 		if (!res.success) {
 			$rootScope.clickToOpen(res.errMsg);
 			return false;
 		}else{
+			$scope.instance = res.body;
 			if (!res.body['taskScoreList']) {
 				$scope.Achievements = [];
-			}else{      
+			}else{   
 				$scope.Achievements = res.body['taskScoreList'];
+				for(var i in $scope.Achievements){
+					$scope.Achievements[i].status = $scope.instance.status;
+				}
 			}
 		}
 	}).error(function(res){
@@ -199,9 +226,12 @@ angular.module('yapp')
 		var achievement = {
 			id : Alength + 1,
 			title : '绩效' + (Alength + 1),
-			status : 1
+			status:0
 		};
 		$scope.Achievements.push(achievement);
+	}
+	$scope.goBack = function(){
+		$state.go('achievementManagement');
 	};
 	$scope.delete = function(id){
 		$http.jsonp(ENV.domain+'performance/task/write/deleteTaskById.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId+"&taskId="+id)
@@ -217,20 +247,23 @@ angular.module('yapp')
 	}
 })
 
-.controller('achievementManagementCtrl', function($scope,Templates,$rootScope,$http,ENV,Session) {
+.controller('achievementManagementCtrl', function($scope,Templates,$rootScope,$http,ENV,Session,$state) {
 	$scope.Instance = [];
-	$scope.getInstance = function(id){
-		Templates.getInstance(id).success(function (res) {//查询实例
-			if (!res.success) {
-				$rootScope.clickToOpen(res.errMsg);
-				return false;
-			}else{
-				$scope.Instance = res.body;
+	Templates.getInstance().success(function (res) {//查询实例
+		if (!res.success) {
+			$rootScope.clickToOpen(res.errMsg);
+			return false;
+		}else{
+			if (!res.body) {
+				$rootScope.clickToOpen("未开始任何绩效!");
+			}else{				
+				$scope.Instances = res.body;
 			}
-		}).error(function(res){
-			$rootScope.clickToOpen("错误");
-		}) 
-	};
+		}
+	}).error(function(res){
+		$rootScope.clickToOpen("错误");
+	}) 
+
 	$scope.submitInstance = function(id){
 		$http.jsonp(ENV.domain+'performance/performanceInstance/write/submitInstance.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId+"&pfinId="+id)
 		.success(function (res) {
@@ -238,20 +271,11 @@ angular.module('yapp')
 				$rootScope.clickToOpen(res.errMsg);
 				return false;
 			}else{
-				$rootScope.clickToOpen('提交成功！')
+				$rootScope.clickToOpen('提交成功！');
+				$state.reload();
 			}
 		})
 	};
-	Templates.Simpleall().success(function (res) {//查询模板
-		if (!res.success) {
-			$rootScope.clickToOpen(res.errMsg);
-			return false;
-		}else{
-			$scope.Templates = res.body;
-		}
-	}).error(function(res){
-		$rootScope.clickToOpen("错误");
-	}) 
 })
 
 .controller('templateManagementCtrl', function($scope,$stateParams,Templates,$rootScope,$state) {
@@ -314,7 +338,7 @@ $scope.startGrade = function(pfmcId) {
 			$rootScope.clickToOpen(res.errMsg);
 			return false;
 		}else{
-			$rootScope.clickToOpen("成功");
+			$rootScope.clickToOpen("评分已开始!");
 			$state.reload();
 		}
 	}).error(function(res){
@@ -351,7 +375,7 @@ $scope.endPerformance = function(pfmcId) {
 }
 })
 
-.controller('checkDetailCtrl', function($scope,Achievements,$stateParams,Session,$http,ENV,$rootScope) {
+.controller('checkDetailCtrl', function($scope,Achievements,$stateParams,Session,$http,ENV,$rootScope,$state) {
 	$http.jsonp(ENV.domain+'performance/task/query/findById.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId+"&taskId="+$stateParams.taskId)
 	.success(function (res) {
 		if (!res.success) {
@@ -361,7 +385,10 @@ $scope.endPerformance = function(pfmcId) {
 			$scope.achievement = res.body;
 			$scope.Customeres =  res.body['customerVOList']
 		}
-	})
+	})	
+	$scope.goBack = function(){
+		history.back(-1)
+	};
 })
 
 .controller('checkDetailManagementCtrl', function($http,Session,$scope,$stateParams,$rootScope,ENV) {
@@ -377,7 +404,10 @@ $scope.endPerformance = function(pfmcId) {
 		}
 	}).error(function(res){
 		$rootScope.clickToOpen("错误");
-	}) 
+	});
+	$scope.goBack = function(){
+		history.back(-1)
+	};
 })
 
 .controller('checkManagementCtrl', function($http,Session,$scope,$stateParams,$rootScope,ENV,$state) {
@@ -472,6 +502,7 @@ $scope.endPerformance = function(pfmcId) {
 		alert("错误");
 	});
 })
+
 .controller('reportCtrl', function($scope,Templates,$rootScope) {
 	Templates.all().success(function (res) {
 		if (!res.success) {
@@ -484,7 +515,7 @@ $scope.endPerformance = function(pfmcId) {
 		$rootScope.clickToOpen("错误");
 	}) 
 })
-.controller('reportDetailCtrl', function($scope,$stateParams,$http,ENV,Session,$rootScope) {
+.controller('reportDetailCtrl', function($scope,$stateParams,$http,ENV,Session,$rootScope,$state) {
 	$http.jsonp( ENV.domain + "performance/reportForms/query/findByPerformanceTemplateId.do?callback=JSON_CALLBACK&sessionId="+Session.newSessionId+"&pfmcId="+$stateParams.templateId)
 	.success(function(res){
 		if (!res.success) {
@@ -492,6 +523,10 @@ $scope.endPerformance = function(pfmcId) {
 			return false;
 		}else{
 			$scope.reportForms = res.body;
+			for(var i in $scope.reportForms){		
+				$scope.reportForms[i].score = $scope.reportForms[i].score.toString();
+				$scope.reportForms[i].conceptScore = $scope.reportForms[i].conceptScore.toString();
+			}
 		}
 	}).error(function(res){
 		$rootScope.clickToOpen("错误");

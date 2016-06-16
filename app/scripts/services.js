@@ -11,7 +11,7 @@ angular.module('yapp.services', [])
 .factory('Templates',function($http,ENV,Session) {
 	return {
 		getInstance:function(id){
-			return $http.jsonp(ENV.domain+'performance/performanceInstance/query/findByPfmcIdAndAssessUid.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId + "&pfmcId=" + id)
+			return $http.jsonp(ENV.domain+'performance/performanceInstance/query/findAllPfin.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId)
 		},
 		Simpleall: function() {
 			return $http.jsonp(ENV.domain+'performance/performanceTemplate/query/findSimplePerformanceTemplateList.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId)
@@ -39,6 +39,9 @@ angular.module('yapp.services', [])
 
 .factory('Grades',function($http,ENV,Session){
 	return {
+		getSelf: function() {
+			return $http.jsonp(ENV.domain+'performance/task/query/findSelfList.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId)
+		},
 		all: function() {
 			return $http.jsonp(ENV.domain+'performance/task/query/findList.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId)
 		},

@@ -35,14 +35,14 @@
 						<div class="form-group" ng-class="{ 'has-error' : achievementForm.basicStandard.$invalid && !achievementForm.basicStandard.$pristine }"> 
 							<label for="inputtext" class="col-sm-2 control-label">3.5标准</label> 
 							<div class="col-sm-10"> 
-								<textarea class="form-control" rows="3" name="basicStandard" ng-model="achievement.basicStandard " required></textarea>
+								<textarea class="form-control" rows="5" name="basicStandard" ng-model="achievement.basicStandard " required></textarea>
 								<p ng-show="achievementForm.basicStandard.$invalid && !achievementForm.basicStandard.$pristine" class="help-block">这个是必填的。</p>
 							</div> 
 						</div> 
 						<div class="form-group" ng-class="{'has-error': achievementForm.beyondStandard.$invalid && !achievementForm.beyondStandard.$pristine }"> 
 							<label for="inputtext" class="col-sm-2 control-label">3.75标准</label> 
 							<div class="col-sm-10"> 
-								<textarea class="form-control" rows="3" name="beyondStandard" ng-model="achievement.beyondStandard" required></textarea>
+								<textarea class="form-control" rows="5" name="beyondStandard" ng-model="achievement.beyondStandard" required></textarea>
 								<p ng-show="achievementForm.beyondStandard.$invalid && !achievementForm.beyondStandard.$pristine" class="help-block">这个是必填的。</p>
 							</div> 
 						</div> 
@@ -51,7 +51,8 @@
 							<label for="inputtext" class="col-sm-2 control-label">操作</label>
 							<div class="col-sm-10">  
 								<button type="submit" class="btn btn-primary  btn-rounded" ng-disabled="achievementForm.$invalid" ng-show="!isToChange">提交</button>
-								<button type="button" class="btn btn-success  btn-rounded" ng-disabled="achievementForm.$invalid" ng-show="isToChange" ng-click="changeForm(achievement)">修改</button>
+								<button type="button" class="btn btn-success  btn-rounded" ng-disabled="achievementForm.$invalid" ng-show="isToChange&&achievement.ifUpdate" ng-click="changeForm(achievement)">修改</button>
+								<button type="button" class="btn btn-info  btn-rounded"  ng-click="goBack()">返回</button>
 							</div>
 						</div>
 					</form>
@@ -92,26 +93,12 @@
 				</h3> 			
 			</div> 			
 			<div class="input-group clean-fix padding" style="height:auto">
-				<div class="nameDiv" ng-repeat="employee in Employees">{{employee.nick}}
+				<div class="nameDiv" ng-repeat="employee in Employees">{{employee.name}}
 					<button type="button" class="btn btn-xs" style="border: 0;" ng-click="deleteEmployee(employee)">
 						<i class="glyphicon glyphicon-remove"></i>
 					</button>
 				</div>
 			</div>
 		</div>
-		<!-- <div class="panel panel-primary">		
-			<div class="panel-heading"> 
-				<h3 class="panel-title">客户列表</h3> 
-			</div> 
-			<div class="input-group padding" style="height:auto">
-			<div class="nameDiv">思慕12123</div>					
-				<div class="nameDiv">思慕12</div>
-				<div class="nameDiv">思慕12</div>
-				<div class="nameDiv">思慕12123</div>
-				<div class="nameDiv">思慕123</div>
-				<div class="nameDiv">思慕12123</div>
-			</div>
-		</div> -->
 	</div>
-</div>
 </div>

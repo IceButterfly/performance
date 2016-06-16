@@ -4,6 +4,9 @@
 		<div class="col-md-8 col-lg-8">
 			<div class="tabbable tabs-left" >
 				<ul class="nav nav-pills nav-stacked">
+					<li style="margin-bottom: 20px;">
+						<button type="button" class="btn btn-lg btn-block btn-primary" ng-click="new()">新增模板条目</button>
+					</li>
 					<li ng-repeat="template in Templates" class="panel panel-primary">
 						<div>
 							<div class="panel-heading bg-primary">
@@ -16,14 +19,10 @@
 							</div>
 							<a type="button" class="btn btn-default" style="display: block;text-align: left;border-top-right-radius:0;border-top-left-radius:0;" href="#/dashboard/templateManagement/{{template.id}}" ng-disabled="template.status !==0 ">
 								<h3>
-									<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
 									{{template.name}}
 								</h3>
 							</a>
 						</div>
-					</li>
-					<li>
-						<button type="button" class="btn btn-lg btn-block btn-primary" ng-click="new()">新增模板条目</button>
 					</li>
 				</ul>
 			</div>

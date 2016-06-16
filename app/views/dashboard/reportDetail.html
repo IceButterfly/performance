@@ -11,8 +11,8 @@
 					<th>价值观B占比</th> 
 					<th>价值观C占比</th> 
 					<th>绩效平均分</th>
-					<th>评价值观分</th>
 					<th>评绩效分</th>
+					<th>评价值观分</th>
 					<th>操作</th>
 				</tr> 
 				<tr ng-repeat="reportform in reportForms">
@@ -22,11 +22,11 @@
 					<td>{{reportform.conceptScoreCAvg}}</td> 
 					<td>{{reportform.scoreAvg}}</td> 
 					<th>
-						<select class="form-control underline" ng-model="reportform.score" ng-options="score.value as score.name for score in scoreOptions ">
+						<select class="form-control underline" ng-model="reportform.score" ng-options="score.value as score.name for score in scoreOptions " style="margin: 0;padding: 0">
 						</select>
 					</th>
 					<th>
-						<select class="form-control underline" ng-model="reportform.conceptScore" ng-options="conceptScore.value as conceptScore.name for conceptScore in conceptScoreOptions">
+						<select class="form-control underline" ng-model="reportform.conceptScore" ng-options="conceptScore.value as conceptScore.name for conceptScore in conceptScoreOptions" style="margin: 0;padding: 0">
 						</select>
 					</th>
 					<th><button type="button" class="btn btn-sm" ng-click="update(reportform)" style="line-height:1">提交评分</button></th>

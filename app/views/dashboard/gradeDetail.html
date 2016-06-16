@@ -7,7 +7,7 @@
 					<h3 class="panel-title">绩效条目编辑</h3> 
 				</div> 
 				<div class="panel-body"> 
-					<form class="form-horizontal ng-pristine ng-valid-date ng-valid-required ng-invalid ng-invalid-date-disabled" name="achievementForm" novalidate ng-submit="submitForm(grade)"> 
+					<form class="form-horizontal ng-pristine ng-valid-date ng-valid-required ng-invalid ng-invalid-date-disabled" name="achievementForm" novalidate ng-submit="submitForm(score)"> 
 						<div class="form-group"> 
 							<label for="inputtext" class="col-sm-2 control-label">绩效条目名</label> 
 							<div class="col-sm-10"> 
@@ -32,13 +32,13 @@
 						<div class="form-group"> 
 							<label for="inputtext" class="col-sm-2 control-label">3.5标准</label> 
 							<div class="col-sm-10"> 
-								<textarea class="form-control" rows="3" name="lowStandard" ng-model="grade.basicStandard"></textarea>
+								<textarea class="form-control" rows="5" name="lowStandard" ng-model="grade.basicStandard"></textarea>
 							</div> 
 						</div> 
 						<div class="form-group"> 
 							<label for="inputtext" class="col-sm-2 control-label">3.75标准</label> 
 							<div class="col-sm-10"> 
-								<textarea class="form-control" rows="3" name="highStandard" ng-model="grade.beyondStandard"></textarea>
+								<textarea class="form-control" rows="5" name="highStandard" ng-model="grade.beyondStandard"></textarea>
 							</div> 
 						</div> 
 						<hr /> 
@@ -46,17 +46,17 @@
 							<label for="inputtext" class="col-sm-2 control-label">绩效评分</label>
 							<div class="col-sm-10" style="padding:7px 15px 0;">  
 								<label class="radio1" for="Option1">
-									<input id="Option1" name="one" type="radio" value="1" ng-model="grade.score"> 
+									<input id="Option1" name="one" type="radio" value="1" ng-model="score.score"> 
 									<span></span> 
 									<b>3.75</b>
 								</label>
 								<label class="radio1" for="Option2"> 
-									<input id="Option2" name="one" type="radio" value="2" ng-model="grade.score"> 
+									<input id="Option2" name="one" type="radio" value="2" ng-model="score.score"> 
 									<span></span> 
 									<b>3.5</b>
 								</label> 
 								<label class="radio1" for="Option3"> 
-									<input id="Option3" name="one" type="radio" value="3" ng-model="grade.score">
+									<input id="Option3" name="one" type="radio" value="3" ng-model="score.score">
 									<span></span> 
 									<b>3.25</b>
 								</label> 
@@ -66,26 +66,26 @@
 							<label for="inputtext" class="col-sm-2 control-label">价值观评分</label>
 							<div class="col-sm-10" style="padding:7px 15px 0 15px;">
 								<label class="radio1" for="Option4">
-									<input id="Option4" name="two" type="radio" value="1" ng-model="grade.conceptScore"> 
+									<input id="Option4" name="two" type="radio" value="1" ng-model="score.conceptScore"> 
 									<span></span> 
 									<b>A</b>
 								</label>
 								<label class="radio1" for="Option6"> 
-									<input id="Option6" name="two" type="radio" value="2" ng-model="grade.conceptScore"> 
+									<input id="Option6" name="two" type="radio" value="2" ng-model="score.conceptScore"> 
 									<span></span> 
 									<b>B</b>
 								</label> 
 								<label class="radio1" for="Option5"> 
-									<input id="Option5" name="two" type="radio" value="3" ng-model="grade.conceptScore"> 
+									<input id="Option5" name="two" type="radio" value="3" ng-model="score.conceptScore"> 
 									<span></span> 
 									<b>C</b>
 								</label> 
 							</div>
 						</div> 
-						<div class="form-group" ng-show="grade.conceptScore==1||grade.score==1"> 
+						<div class="form-group" ng-show="score.conceptScore==1||score.score==1||score.conceptScore==3||score.score==3"> 
 							<label for="inputtext" class="col-sm-2 control-label">理由</label> 
 							<div class="col-sm-10"> 
-								<textarea class="form-control" rows="3" name="highStandard" ng-model="grade.reason"></textarea>
+								<textarea class="form-control" rows="2" name="highStandard" ng-model="score.reason"></textarea>
 							</div> 
 						</div> 
 						<hr/>
@@ -93,6 +93,7 @@
 							<label for="inputtext" class="col-sm-2 control-label">操作</label>
 							<div class="col-sm-10">  
 								<button type="submit" class="btn btn-primary  btn-rounded">提交</button>
+								<button type="button" class="btn btn-info  btn-rounded"  ng-click="goBack()">返回</button>
 							</div>
 						</div>
 					</form>
@@ -140,11 +141,22 @@
 			</div> 
 			<div class="input-group padding">
 				<div class="nameDiv">
-					<span>{{score.scoreValue}}</span>
-					<span>{{score.conceptScoreValue}}</span>
-				</div>		
+					<span>{{score.selfScoreValue}}</span>
+					<span>{{score.selfConceptScoreValue}}</span>
+				</div>
 			</div>
 		</div>
+		<div class="panel panel-primary" ng-show="score.selfReason">		
+			<div class="panel-heading"> 
+				<h3 class="panel-title">理由</h3> 
+			</div> 
+			<div class="input-group padding">
+				<div class="nameDiv">
+					<span>{{score.selfReason}}</span>
+				</div>
+			</div>
+		</div>
+		
 	</div>
 </div>
 </div>

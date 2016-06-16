@@ -1,28 +1,56 @@
 <div class="container-fluid">
 	<div class="row-fluid">
 		<span class="glyphicon glyphicon-dashboard bg-fade"></span>
-		<div class="col-md-4 col-lg-4" ng-repeat="list in Grades">
-			<div class="tabbable tabs-left" >
-				<ul class="nav nav-pills nav-stacked">
-					<li  class="panel panel-primary">
-						<div>
-							<div class="panel-heading bg-primary">
-								<span class="panel-title">待评项目</span>
-								<span class="pull-right"> 待评人：{{list.name}}</span>
+		<div class="col-md-6 col-lg-6">
+			<div style="border: 1px solid #3ca2e0;overflow: hidden;border-radius: 5px;">
+				<div class="panel-heading">
+					<span class="panel-title" style="color: #3ca2e0">自评项目</span>
+				</div>
+				<div class="tabbable tabs-left col-md-12 col-lg-12" ng-repeat="list in selfGrades">
+					<ul class="nav nav-pills nav-stacked">
+						<li  class="panel panel-primary">
+							<div >
+								<div class="panel-heading bg-primary">
+									<span class="panel-title"> 待评人姓名：{{list.name}}</span>
+								</div>
+								<div>
+									<a type="button" class="btn btn-default" style="display:block;text-align: left;margin: 10px;" href="#/dashboard/gradeManagement/{{grade.id}}" ng-repeat="grade in list.taskList">
+										<span style="white-space: pre-wrap">{{grade.title}}</span>
+										<span class="pull-right" ng-hide="grade.ifGrade">未评价</span>
+										<span class="pull-right" ng-show="grade.ifGrade">已评价</span>
+									</a>
+								</div>
 							</div>
-							<div>
-								<a type="button" class="btn btn-default" style="display:block;text-align: left;margin: 10px;" href="#/dashboard/gradeManagement/{{grade.id}}" ng-repeat="grade in list.taskList">
-									<h4>
-										<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-										{{grade.title}}
-										<span class="pull-right">开始评价</span>
-									</h4>
-								</a>
-							</div>
-						</div>
-					</li>
-				</ul>
+						</li>
+					</ul>
+				</div>
 			</div>
+		</div>
+		<div class="col-md-6 col-lg-6">
+			<div style="border: 1px solid #3ca2e0;overflow: hidden;border-radius: 5px;">
+				<div class="panel-heading">
+					<span class="panel-title" style="color: #3ca2e0">他评项目</span>
+				</div>
+				<div class="tabbable tabs-left col-md-12 col-lg-12" ng-repeat="list in Grades">
+					<ul class="nav nav-pills nav-stacked">
+						<li  class="panel panel-primary clearfix">
+							<div>
+								<div class="panel-heading bg-primary">
+									<span class="panel-title"> 待评人姓名：{{list.name}}</span>
+								</div>
+								<div>
+									<a type="button" class="btn btn-default" style="display:block;text-align: left;margin: 10px;" href="#/dashboard/gradeManagement/{{grade.id}}" ng-repeat="grade in list.taskList">
+										<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+										<span style="white-space: pre-wrap">{{grade.title}}</span>
+										<span class="pull-right" ng-hide="grade.ifGrade">开始评价</span>
+										<span class="pull-right" ng-show="grade.ifGrade">已评价</span>
+									</a>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>		
+			</div>	
 		</div>
 	</div>
 </div>

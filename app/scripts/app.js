@@ -31,13 +31,13 @@ angular.module('yapp', [
 			controller: 'DashboardCtrl'
 		})
 		.state('instanceList', {
-			url: '/achievementManagement/:InstanceId',
+			url: '/achievementManagement/:instanceId',
 			parent: 'dashboard',
 			templateUrl: 'views/dashboard/instanceList.html',
 			controller: 'instanceListCtrl'
 		})
 		.state('instanceList.achievementDetail', {
-			url: '/achievementManagement/:InstanceId/:taskId',
+			url: '/achievementManagement/:instanceId/:taskId',
 			parent: 'dashboard',
 			templateUrl: 'views/dashboard/achievementDetail.html',
 			controller: 'achievementDetailCtrl'
