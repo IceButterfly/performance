@@ -5,7 +5,6 @@ angular.module('yapp', [
 	'yapp.services',
 	'angular-datepicker',
 	'yapp.config',
-	'angucomplete',
 	'angular-md5',
 	'ngDialog'
 	]).config(function($stateProvider, $urlRouterProvider) {
@@ -101,7 +100,13 @@ angular.module('yapp', [
 			parent: 'dashboard',
 			templateUrl: 'views/dashboard/reportDetail.html',
 			controller: 'reportDetailCtrl'
-		});
+		})
+		.state('report.reportDetail.reportSingleDetail', {
+			url: '/report/:templateId/:instanceId',
+			parent: 'dashboard',
+			templateUrl: 'views/dashboard/reportSingleDatail.html',
+			controller: 'reportSingleDetailCtrl'
+		})
 	})
 	.run(function ($rootScope, $location,Session) {
 		$rootScope.$on('$stateChangeStart', function (event, next) {

@@ -42,7 +42,7 @@
 									<a type="button" class="btn btn-default" style="display:block;text-align: left;margin: 10px;" href="#/dashboard/gradeManagement/{{grade.id}}" ng-repeat="grade in list.taskList">
 										<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
 										<span style="white-space: pre-wrap">{{grade.title}}</span>
-										<span class="pull-right" ng-hide="grade.ifGrade">开始评价</span>
+										<span class="pull-right" ng-hide="grade.ifGrade">未评价</span>
 										<span class="pull-right" ng-show="grade.ifGrade">已评价</span>
 									</a>
 								</div>

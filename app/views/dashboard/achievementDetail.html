@@ -11,7 +11,7 @@
 						<div class="form-group" ng-class="{ 'has-error' : achievementForm.title.$invalid && !achievementForm.title.$pristine }"> 
 							<label for="inputtext" class="col-sm-2 control-label">绩效条目名</label> 
 							<div class="col-sm-10"> 
-								<input type="text" class="form-control underline" name="title" placeholder="即任务/目标" ng-model="achievement.title" required/> 
+								<input type="text" class="form-control underline" name="title" placeholder="即任务/目标" ng-model="achievement.title" required ng-disabled="status !== '1'"/> 
 								<p ng-show="achievementForm.title.$invalid && !achievementForm.title.$pristine" class="help-block">这个是必填的。</p>
 							</div> 
 						</div> 
@@ -19,7 +19,7 @@
 							<label class="col-sm-2 control-label">权重</label> 
 							<div class="col-sm-10"> 
 								<div class="input-group mb-10"> 
-									<input type="number" class="form-control underline" name="percentage" placeholder="一个季度所有绩效和为100%" ng-model="achievement.percentage" required/>
+									<input type="number" class="form-control underline" name="percentage" placeholder="一个季度所有绩效和为100%" ng-model="achievement.percentage" required  ng-disabled="status !== '1'"/> 
 									<span class="input-group-addon underline">%</span> 
 								</div> 
 								<p ng-show="achievementForm.percentage.$invalid && !achievementForm.percentage.$pristine" class="help-block">这个是必填的。</p>
@@ -28,21 +28,22 @@
 						<div class="form-group" ng-class="{ 'has-error' : achievementForm.description .$invalid && !achievementForm.description .$pristine }"> 
 							<label for="inputtext" class="col-sm-2 control-label">详细描述</label> 
 							<div class="col-sm-10"> 
-								<textarea class="form-control" rows="7" name="description" ng-model="achievement.description" required/> </textarea>
+								<textarea class="form-control" rows="7" name="description" ng-model="achievement.description" required
+								ng-disabled="status !== '1'"> </textarea>
 								<p ng-show="achievementForm.description.$invalid && !achievementForm.description.$pristine" class="help-block">这个是必填的。</p>
 							</div> 
 						</div> 
 						<div class="form-group" ng-class="{ 'has-error' : achievementForm.basicStandard.$invalid && !achievementForm.basicStandard.$pristine }"> 
 							<label for="inputtext" class="col-sm-2 control-label">3.5标准</label> 
 							<div class="col-sm-10"> 
-								<textarea class="form-control" rows="5" name="basicStandard" ng-model="achievement.basicStandard " required></textarea>
+								<textarea class="form-control" rows="5" name="basicStandard" ng-model="achievement.basicStandard " required ng-disabled="status !== '1'"></textarea>
 								<p ng-show="achievementForm.basicStandard.$invalid && !achievementForm.basicStandard.$pristine" class="help-block">这个是必填的。</p>
 							</div> 
 						</div> 
 						<div class="form-group" ng-class="{'has-error': achievementForm.beyondStandard.$invalid && !achievementForm.beyondStandard.$pristine }"> 
 							<label for="inputtext" class="col-sm-2 control-label">3.75标准</label> 
 							<div class="col-sm-10"> 
-								<textarea class="form-control" rows="5" name="beyondStandard" ng-model="achievement.beyondStandard" required></textarea>
+								<textarea class="form-control" rows="5" name="beyondStandard" ng-model="achievement.beyondStandard" required ng-disabled="status !== '1'"></textarea>
 								<p ng-show="achievementForm.beyondStandard.$invalid && !achievementForm.beyondStandard.$pristine" class="help-block">这个是必填的。</p>
 							</div> 
 						</div> 
@@ -86,7 +87,7 @@
 				</li>
 			</ol>
 		</div>
-		<div class="panel panel-primary">		
+		<div class="panel panel-primary" ng-hide="status !== '1'">		
 			<div class="panel-heading"> 
 				<h3 class="panel-title">客户列表					
 					<button type="button" class="btn btn-primary pull-right" style="border: 0;padding: 0 3px" ng-click="findAllEmployees()">添加<i class="glyphicon glyphicon-user"></i></button>
@@ -98,6 +99,14 @@
 						<i class="glyphicon glyphicon-remove"></i>
 					</button>
 				</div>
+			</div>
+		</div>
+		<div class="panel panel-primary" ng-show="status !== '1'">
+			<div class="panel-heading"> 
+				<h3 class="panel-title">客户列表</h3> 
+			</div> 
+			<div class="input-group padding" style="height:auto">
+				<div class="nameDiv" ng-repeat="employee in Employees">{{employee.name}}</div>					
 			</div>
 		</div>
 	</div>

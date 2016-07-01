@@ -11,14 +11,14 @@
 						<div class="form-group"> 
 							<label for="inputtext" class="col-sm-2 control-label">绩效条目名</label> 
 							<div class="col-sm-10"> 
-								<input type="text" class="form-control underline" name="name" placeholder="即任务/目标" ng-model="grade.title"/> 
+								<input type="text" class="form-control underline" name="name" placeholder="即任务/目标" ng-model="grade.title" ng-disabled="true"/> 
 							</div> 
 						</div> 
 						<div class="form-group"> 
 							<label class="col-sm-2 control-label">权重</label> 
 							<div class="col-sm-10"> 
 								<div class="input-group mb-10"> 
-									<input type="number" class="form-control underline" name="percentage" placeholder="一个季度所有绩效和为100%" ng-model="grade.percentage" />
+									<input type="number" class="form-control underline" name="percentage" placeholder="一个季度所有绩效和为100%" ng-model="grade.percentage" ng-disabled="true"/>
 									<span class="input-group-addon underline">%</span> 
 								</div> 
 							</div> 
@@ -26,19 +26,19 @@
 						<div class="form-group"> 
 							<label for="inputtext" class="col-sm-2 control-label">详细描述</label> 
 							<div class="col-sm-10"> 
-								<textarea class="form-control" rows="7" name="detail" ng-model="grade.description" /> </textarea>
+								<textarea class="form-control" rows="7" name="detail" ng-model="grade.description" ng-disabled="true"> </textarea>
 							</div> 
 						</div> 
 						<div class="form-group"> 
 							<label for="inputtext" class="col-sm-2 control-label">3.5标准</label> 
 							<div class="col-sm-10"> 
-								<textarea class="form-control" rows="5" name="lowStandard" ng-model="grade.basicStandard"></textarea>
+								<textarea class="form-control" rows="5" name="lowStandard" ng-model="grade.basicStandard" ng-disabled="true"></textarea>
 							</div> 
 						</div> 
 						<div class="form-group"> 
 							<label for="inputtext" class="col-sm-2 control-label">3.75标准</label> 
 							<div class="col-sm-10"> 
-								<textarea class="form-control" rows="5" name="highStandard" ng-model="grade.beyondStandard"></textarea>
+								<textarea class="form-control" rows="5" name="highStandard" ng-model="grade.beyondStandard" ng-disabled="true"></textarea>
 							</div> 
 						</div> 
 						<hr /> 
@@ -82,7 +82,7 @@
 								</label> 
 							</div>
 						</div> 
-						<div class="form-group" ng-show="score.conceptScore==1||score.score==1||score.conceptScore==3||score.score==3"> 
+						<div class="form-group"> 
 							<label for="inputtext" class="col-sm-2 control-label">理由</label> 
 							<div class="col-sm-10"> 
 								<textarea class="form-control" rows="2" name="highStandard" ng-model="score.reason"></textarea>

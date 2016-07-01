@@ -1,7 +1,7 @@
 <div class="container-fluid">
 	<div class="row-fluid">
 		<span class="glyphicon glyphicon-dashboard bg-fade"></span>
-		<div class="col-md-8 col-lg-8">
+		<div class="col-md-12 col-lg-12">
 			<div class="tabbable tabs-left" >
 				<ul class="nav nav-pills nav-stacked">
 					<li  class="panel panel-primary" ng-repeat="instance in Instances">
@@ -13,11 +13,17 @@
 							<div>
 								<a type="button" class="btn btn-default" style="display: block;text-align: left;border-top-right-radius:0;border-top-left-radius:0;" href="#/dashboard/achievementManagement/{{instance.id}}">
 									<h3>
-										{{instance.title}}
-										<span class="pull-right">
+										<span style="white-space: pre-wrap">{{instance.title}}</span>
+										<span>
 											({{instance.startTime | date:'yyyy-MM-dd'}}至{{instance.endTime | date:'yyyy-MM-dd'}})
 										</span>
-									</h3>
+										<span class="pull-right" ng-show="instance.conre !== 0">	
+											最终评价：{{instance.conre}}{{instance.conceptScore}}
+										</span>
+									</h3>	
+									<h4 ng-show="instance.remark">
+										理由：<span style="white-space: pre-wrap">{{instance.remark}}</span>
+									</h4>
 								</a>
 							</div>
 						</div>
@@ -25,7 +31,7 @@
 				</ul>
 			</div>
 		</div>
-		<div class="col-md-4" style="border-radius: 10px;">
+		<!-- <div class="col-md-4" style="border-radius: 10px;">
 			<div class="panel panel-primary"> 
 				<div class="panel-heading"> 
 					<h3 class="panel-title">提示：</h3> 
@@ -48,6 +54,6 @@
 					</li>
 				</ol>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </div>

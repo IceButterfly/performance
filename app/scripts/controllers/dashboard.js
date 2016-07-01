@@ -88,9 +88,9 @@ angular.module('yapp')
 		$rootScope.clickToOpen("错误");
 	}) ;
 	$scope.submitForm = function(score){
-		if(score.conceptScore==1||score.score==1){
+		if(score.conceptScore==1||score.score==1||score.conceptScore==3||score.score==3){
 			if (!score.reason) {
-				$rootScope.clickToOpen("填写3.75或A时,请填写理由");
+				$rootScope.clickToOpen("填写3.75，3.25或A，C时,请填写理由");
 				return false;
 			}
 		}
@@ -108,7 +108,7 @@ angular.module('yapp')
 		});		
 	};
 	$scope.goBack = function(){
-		history.back(-1)
+		history.back(-1);
 	};
 })
 
@@ -123,7 +123,8 @@ angular.module('yapp')
 	};
 })
 
-.controller('achievementDetailCtrl', function($scope,Achievements,$stateParams,Session,$http,ENV,$state,$rootScope,ngDialog) {
+.controller('achievementDetailCtrl', function($scope,Achievements,$stateParams,Session,$http,ENV,$state,$rootScope,ngDialog,$location) {
+	$scope.status = $location.search().status;
 	$scope.Employees = [];
 	if ($stateParams.taskId) {
 		$http.jsonp(ENV.domain+'performance/task/query/findById.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId+"&taskId="+$stateParams.taskId)
@@ -176,10 +177,21 @@ angular.module('yapp')
 		for(var i in $scope.Employees){
 			customerIdList += $scope.Employees[i].id+',';
 		}
-		var description = encodeURI(achievement.description);
-		var basicStandard = encodeURI(achievement.basicStandard);
-		var beyondStandard = encodeURI(achievement.beyondStandard);
-		$http.jsonp(ENV.domain+'performance/task/write/addTask.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId+'&basicStandard='+basicStandard+'&beyondStandard='+beyondStandard+'&description='+description+'&id='+achievement.id+'&percentage='+achievement.percentage+'&pfmcInstanceId='+achievement.pfmcInstanceId+'&title='+achievement.title+'&pfinId='+achievement.pfinId+'&customerIdList='+customerIdList)
+		$.post({  
+			url:ENV.domain+'performance/task/write/addTask.do',  
+			data:{
+				sessionId:Session.newSessionId,
+				basicStandard:basicStandard,
+				beyondStandard:beyondStandard,
+				description:description,
+				id:achievement.id,
+				percentage:achievement.percentage,
+				pfmcInstanceId:achievement.pfmcInstanceId,
+				title:achievement.title,
+				pfinId:achievement.pfinId,
+				customerIdList:customerIdList
+			}  
+		})
 		.success(function (res) {
 			if (!res.success) {
 				$rootScope.clickToOpen(res.errMsg);
@@ -228,10 +240,10 @@ angular.module('yapp')
 			title : '绩效' + (Alength + 1),
 			status:0
 		};
-		$scope.Achievements.push(achievement);
+		$scope.Achievements.unshift(achievement);
 	}
 	$scope.goBack = function(){
-		$state.go('achievementManagement');
+		history.go(-1);
 	};
 	$scope.delete = function(id){
 		$http.jsonp(ENV.domain+'performance/task/write/deleteTaskById.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId+"&taskId="+id)
@@ -301,7 +313,7 @@ angular.module('yapp')
 			name : '模板' + (Tlength + 1),
 			status : 0
 		};
-		$scope.Templates.push(template);
+		$scope.Templates.unshift(template);
 	}
 //删除绩效模板
 $scope.delete = function(pfmcId) {
@@ -460,9 +472,7 @@ $scope.endPerformance = function(pfmcId) {
 			departmentId:$scope.template.departmentId,
 			startTime:Date.parse(new Date($scope.template.startTime)),
 			endTime:Date.parse(new Date($scope.template.endTime)),
-			name:$scope.template.name,
-			ownerUid:$scope.template.ownerUid.originalObject.id,
-			statisticsUid:$scope.template.statisticsUid.originalObject.id
+			name:$scope.template.name
 		}
 		for(var i in templateJson){
 			newTemplateJson += "&" + i +"="+ templateJson[i];
@@ -534,18 +544,21 @@ $scope.endPerformance = function(pfmcId) {
 	$scope.scoreOptions = [
 	{ name: '3.75', value: '1' }, 
 	{ name: '3.5', value: '2' }, 
-	{ name: '3.25', value: '3' }
-	];
+	{ name: '3.25', value: '3' }];
 
 	$scope.conceptScoreOptions = [
 	{ name: 'A', value: '1' }, 
 	{ name: 'B', value: '2' }, 
-	{ name: 'C', value: '3' }
-	];
+	{ name: 'C', value: '3' }];
 	//$scope.form = {conceptScore : $scope.conceptScoreOptions[0].value,score : $scope.scoreOptions[0].value};
-
 	$scope.update = function(form){
-		$http.jsonp( ENV.domain + "performance/performanceInstance/write/updatePerformanceInstance.do?callback=JSON_CALLBACK&sessionId="+Session.newSessionId+"&score="+form.score +"&conceptScore="+ form.conceptScore +"&pfinId="+form.pfmcInstanceId)
+		if(form.conceptScore==1||form.score==1||form.conceptScore==3||form.score==3){
+			if (!form.remark) {
+				$rootScope.clickToOpen("填写3.75，3.25或A，C时,请填写理由");
+				return false;
+			}
+		}
+		$http.jsonp( ENV.domain + "performance/performanceInstance/write/updatePerformanceInstance.do?callback=JSON_CALLBACK&sessionId="+Session.newSessionId+"&score="+form.score +"&conceptScore="+ form.conceptScore +"&pfinId="+form.pfmcInstanceId +"&remark="+form.remark)
 		.success(function(res){
 			if (!res.success) {
 				$rootScope.clickToOpen(res.errMsg);
@@ -558,4 +571,22 @@ $scope.endPerformance = function(pfmcId) {
 			$rootScope.clickToOpen("错误");
 		}) 
 	}
+})
+.controller('reportSingleDetailCtrl', function($scope,$stateParams,$http,ENV,Session,$rootScope,$state) {
+	$scope.instanceId = $stateParams.instanceId;
+	$http.jsonp(ENV.domain+'performance/performanceInstance/query/findDetail.do?callback=JSON_CALLBACK&sessionId='+Session.newSessionId+"&pfinId="+$stateParams.instanceId)
+	.success(function (res) {
+		if (!res.success) {
+			$rootScope.clickToOpen(res.errMsg);
+			return false;
+		}else{
+			$scope.report = res.body;
+			$scope.taskScoreList = res.body['taskScoreList'];
+		}
+	}).error(function(res){
+		$rootScope.clickToOpen("错误");
+	});
+	$scope.goBack = function(){
+		history.back(-1)
+	};
 })

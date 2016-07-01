@@ -55,21 +55,28 @@ angular.module('yapp.services', [])
 })
 
 .service('Session', function () {
-	this.create = function (userId, email, organizationType,roleType,roleTypeText,newSessionId) {
+	this.create = function (userId, email, organizationType,userOrganizationList,newSessionId) {
 		this.userId = userId;
 		this.email = email;
 		this.organizationType = organizationType;
-		this.roleType = roleType;
-		this.roleTypeText = roleTypeText;
+		this.userOrganizationList = userOrganizationList;
 		this.newSessionId = newSessionId;   
 	};
 	this.destroy = function () {
 		this.userId = null;
 		this.email = null;
 		this.organizationType = null;
-		this.email = null;
-		this.organizationType = null;
+		this.userOrganizationList = null;
 		this.newSessionId = null;   
 	};
+	this.isLeader = function(){
+		var isLeader = false;
+		for(var i in this.userOrganizationList){
+			if (this.userOrganizationList[i].roleType == 7) {
+				isLeader = true;
+			}			
+		}
+		return isLeader;
+	}
 	return this;
 })

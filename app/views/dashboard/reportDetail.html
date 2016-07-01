@@ -1,4 +1,4 @@
-<div class="col-md-10 col-lg-10">
+<div class="col-md-12 col-lg-12">
 	<div class="panel panel-primary"> 
 		<div class="panel-heading"> 
 			<h3 class="panel-title">查询绩效报表</h3> 
@@ -15,22 +15,37 @@
 					<th>评价值观分</th>
 					<th>操作</th>
 				</tr> 
-				<tr ng-repeat="reportform in reportForms">
-					<td>{{reportform.assessName}}</td>
-					<td>{{reportform.conceptScoreAAvg}}</td> 
-					<td>{{reportform.conceptScoreBAvg}}</td> 
-					<td>{{reportform.conceptScoreCAvg}}</td> 
-					<td>{{reportform.scoreAvg}}</td> 
-					<th>
-						<select class="form-control underline" ng-model="reportform.score" ng-options="score.value as score.name for score in scoreOptions " style="margin: 0;padding: 0">
-						</select>
-					</th>
-					<th>
-						<select class="form-control underline" ng-model="reportform.conceptScore" ng-options="conceptScore.value as conceptScore.name for conceptScore in conceptScoreOptions" style="margin: 0;padding: 0">
-						</select>
-					</th>
-					<th><button type="button" class="btn btn-sm" ng-click="update(reportform)" style="line-height:1">提交评分</button></th>
-				</tr>
+				<tbody ng-repeat="reportform in reportForms">
+					<tr >
+						<td>{{reportform.assessName}}</td>
+						<td>{{reportform.conceptScoreAAvg}}</td> 
+						<td>{{reportform.conceptScoreBAvg}}</td> 
+						<td>{{reportform.conceptScoreCAvg}}</td> 
+						<td>{{reportform.scoreAvg}}</td> 
+						<th>
+							<select class="form-control underline" ng-model="reportform.score" ng-options="score.value as score.name for score in scoreOptions " style="margin: 0;padding: 0">
+							</select>
+						</th>
+						<th>
+							<select class="form-control underline" ng-model="reportform.conceptScore" ng-options="conceptScore.value as conceptScore.name for conceptScore in conceptScoreOptions" style="margin: 0;padding: 0">
+							</select>
+						</th>
+						<th>
+							<button type="button" class="btn btn-sm" ng-click="update(reportform)" style="line-height:1">提交评分</button>
+							<a type="button" class="btn btn-sm" ng-click="" style="line-height:1" href="#/dashboard/report/{{reportform.pfmcTmplId}}/{{reportform.pfmcInstanceId}}">详情</a>
+						</th>
+					</tr>
+					<tr>
+						<th colspan="8">
+							<div class="form-group"> 
+							<label for="inputtext" class="col-sm-1 control-label">理由：</label> 
+								<div class="col-sm-11"> 
+									<textarea class="form-control" ng-model="reportform.remark" required></textarea>
+								</div> 
+							</div> 
+						</th>
+					</tr>
+				</tbody>
 			</table>
 		</div> 
 	</div>

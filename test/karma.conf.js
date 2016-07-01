@@ -22,7 +22,6 @@ module.exports = function(config) {
       '../bower_components/ui-router/release/angular-ui-router.js',
       '../bower_components/angular-animate/angular-animate.js',
       '../bower_components/angular-native-datepicker/build/angular-datepicker.js',
-      '../bower_components/angucomplete/angucomplete.js',
       '../bower_components/angular-md5/angular-md5.js',
       '../bower_components/ng-dialog/js/ngDialog.js',
       // endbower
